@@ -1,5 +1,5 @@
 'use client'
-import { ReturnRequest } from "@/interface/returnProduct.interface"
+import { ReturnItem, ReturnRequest } from "@/interface/returnProduct.interface"
 import returnProductService from "@/service/returnProduct.service"
 import { Button } from "primereact/button"
 import { Column } from "primereact/column"
@@ -8,6 +8,8 @@ import { Dialog } from "primereact/dialog"
 import { Divider } from "primereact/divider"
 import { Tag } from "primereact/tag"
 import { useRef, useState } from "react"
+import ListReturnItems from "./ListReturnItem"
+import ReturnRequestDetail from "./ReturnRequestDetail"
 
 interface ReturnRequestProps {
     initialData: ReturnRequest[]
@@ -15,6 +17,7 @@ interface ReturnRequestProps {
 
 const ListReturnRequests = ({ initialData }: ReturnRequestProps) => {
     const [returnRequests, setReturnRequests] = useState<ReturnRequest[]>(initialData)
+
     const data = useRef<DataTable<ReturnRequest[]>>(null)
     const [visible, setVisible] = useState(false)
     // const fetchReturnRequests = async () => {
@@ -41,13 +44,12 @@ const ListReturnRequests = ({ initialData }: ReturnRequestProps) => {
     }
 
     const actionBodyTemplate = (rowData: ReturnRequest) => {
+        const header = `RETURN REQUEST  OF ORDER #${rowData.orderId}`;
         return (
             <>
                 <Button label="Show" icon="pi pi-expand" onClick={() => setVisible(true)} />
-                <Dialog header="Header" visible={visible} style={{ width: '50vw' }} onHide={() => { if (!visible) return; setVisible(false); }} >
-                    <p className="m-0">
-                        LIST RETURN ITEMS
-                    </p>
+                <Dialog header={header} visible={visible} style={{ width: '50vw' }} onHide={() => { if (!visible) return; setVisible(false); }} >
+                    <ReturnRequestDetail returnRequest={rowData} />
                 </Dialog>
             </>
         )
@@ -69,12 +71,6 @@ const ListReturnRequests = ({ initialData }: ReturnRequestProps) => {
                 currentPageReportTemplate='Showing {first} to {last} of {totalRecords} Return Requests'
                 emptyMessage='No Return Requests found.'
             >
-                {/* <Column
-                    selectionMode='multiple'
-                    headerStyle={{
-                        width: '4rem'
-                    }}
-                ></Column> */}
                 <Column
                     header="Customer"
                     body={(rowData) => `${rowData.firstName} ${rowData.lastName}`}

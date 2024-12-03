@@ -23,7 +23,7 @@
         "nextjs-toploader": "^3.7.15",
         "primeflex": "^3.3.1",
         "primeicons": "^7.0.0",
-        "primereact": "10.5.1",
+        "primereact": "^10.5.1",
         "quill": "^2.0.2",
         "react": "^18.3.1",
         "react-barcode": "^1.5.3",

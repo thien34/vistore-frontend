@@ -78,9 +78,17 @@ export interface CustomerOrderResponse {
 }
 
 export interface ReturnTimeLine {
-
+    id: number,
+    returnRequestId: number,
+    status: string,
+    description: string,
+    createDate: Date
 }
-
+export interface ReturnTimeLineRequest {
+    returnRequestId: number,
+    status: string,
+    description: string
+}
 export interface OrderItemInfoResponse {
     orderItemId?: number,
     productId: number,
@@ -97,9 +105,34 @@ export interface PictureReTurnProductResponse {
     linkImg: string;
 }
 
+export interface PendingReturnProductRequest {
+    returnRequestId: number,
+    orderItemId: number,
+    quantity: number
+}
+
+export interface ProcessedReturnProductRequest {
+    returnRequestId: number,
+    orderItemId: number,
+    quantity: number,
+    status: string
+}
+
+export interface ReStockQuantityProductRequest {
+    productId: number,
+    quantity: number
+}
+export interface PendingReturnProduct {
+    id: number,
+    returnRequestId: number,
+    productJson: string,
+    quantity: number,
+}
 
 export type OrderPagingResponse = PagingResponse<CustomerOrderResponse>
 export type ReturnInvoicePagingResponse = PagingResponse<ReturnInvoice>
 export type ReturnRequestPagingResponse = PagingResponse<ReturnRequest>
 export type OrderItemInfoPagingResponse = PagingResponse<OrderItemInfoResponse>
 export type ReturnItemPagingResponse = PagingResponse<ReturnItem>
+export type PendingReturnProductPagingResponse = PagingResponse<PendingReturnProduct>
+export type ProcessedReturnProductRequestPagingResponse = PagingResponse<ProcessedReturnProductRequest>

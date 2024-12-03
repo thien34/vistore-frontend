@@ -44,7 +44,25 @@ const AppMenu = () => {
             label: 'Orders',
             items: [
                 { label: 'Orders', icon: 'pi pi-fw pi-table', to: '/uikit/table' },
-                { label: 'Return Goods', icon: 'pi pi-fw pi-list', to: '/admin/return-product' },
+                {
+                    label: 'Return Goods', icon: 'pi pi-reply',
+                    items: [
+                        {
+                            label: 'Return Management', icon: 'pi pi-briefcase',
+                            items: [
+                                { label: 'Return Invoice', icon: '', to: '/admin/return-product/management/return-invoice' },
+                                { label: 'Return Request', icon: '', to: '/admin/return-product/management/return-request' },
+                            ]
+                        },
+                        {
+                            label: 'Return Item Tracking', icon: 'pi pi-box',
+                            items: [
+                                { label: 'Awaiting Approval', to: '/admin/return-product/item-tracking/awaiting-approval' },
+                                { label: 'Approved Return', to: '/admin/return-product/item-tracking/approved-return' },
+                            ]
+                        }
+                    ]
+                },
                 { label: 'Recurring payments', icon: 'pi pi-fw pi-share-alt', to: '/uikit/tree' },
                 { label: 'Carts & Wishlists', icon: 'pi pi-fw pi-tablet', to: '/uikit/panel' }
             ]

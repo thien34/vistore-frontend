@@ -56,7 +56,8 @@ const ModalReturnProduct: React.FC<ReturnProductProps> = ({ initialData, onSelec
         totalReturnQuantity: 0,
         customerComments: '',
         staffNotes: '',
-        returnRequestStatusId: 'CLOSED',
+        returnFee: 0,
+        returnRequestStatusId: 'CLOSED'
     });
     const handleQuantityChange = (productId: number, quantity: number) => {
         setMappedData((prevMappedData) => {
