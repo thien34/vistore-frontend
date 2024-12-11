@@ -46,26 +46,10 @@ function ProductList({ products }: Props) {
                 currentPageReportTemplate='Hiển thị từ {first} đến {last} trong tổng số {totalRecords} sản phẩm'
             >
                 <Column
-                    header='#'
-                    body={indexBodyTemplate}
-                    headerStyle={{
-                        width: '4rem'
-                    }}
-                />
-                <Column
-                    header='Ảnh'
-                    body={(rowData) => (
-                        <Image
-                            src={rowData.imageUrl || '/demo/images/default/—Pngtree—sneakers_3989154.png'}
-                            width='70px'
-                            height='70px'
-                            alt={rowData.name ?? 'Product Image'}
-                            onError={(e) =>
-                                ((e.target as HTMLImageElement).src =
-                                    '/demo/images/default/—Pngtree—sneakers_3989154.png')
-                            }
-                        />
-                    )}
+                    header="#"
+                    body={(rowData, options) => (options.rowIndex + 1)}
+                    headerStyle={{ width: '4rem', textAlign: 'center' }}
+                    style={{ textAlign: 'center' }}
                 />
                 <Column field='name' header='Tên Sản Phẩm'></Column>
                 <Column field='categoryName' header='Danh Mục'></Column>
