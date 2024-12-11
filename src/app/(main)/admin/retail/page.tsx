@@ -86,7 +86,7 @@ export default function Retail() {
     const addTab = async () => {
         const newId = uuidv4()
         const newHeader = `Hóa đơn ${tabs.length + 1}`
-        if (tabs.length >= 7) {
+        if (tabs.length >= 10) {
             showError()
             return
         }
@@ -143,7 +143,7 @@ export default function Retail() {
         toast.current?.show({
             severity: 'error',
             summary: 'Cảnh báo',
-            detail: 'Tạo tối đa 7 đơn',
+            detail: 'Tạo tối đa 10 đơn',
             life: 1000
         })
     }

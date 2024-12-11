@@ -64,6 +64,9 @@ const CartItem = ({ cart, onDelete, onQuantityChange }: CartItemProps) => {
             return false
         }
     }
+    const formatCurrency = (value: number) => {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value)
+    }
 
     return (
         <>
@@ -119,14 +122,14 @@ const CartItem = ({ cart, onDelete, onQuantityChange }: CartItemProps) => {
                             {cart.productResponse.discountPrice ? (
                                 <div>
                                     <span className='line-through text-gray-400'>
-                                        ${cart.productResponse.price * quantity}
+                                        {formatCurrency(cart.productResponse.price * quantity)}
                                     </span>
                                     <span className='ml-2 text-red-500 font-semibold'>
-                                        ${cart.productResponse.discountPrice * quantity}
+                                        {formatCurrency(cart.productResponse.discountPrice * quantity)}
                                     </span>
                                 </div>
                             ) : (
-                                <span>${cart.productResponse.price * quantity}</span>
+                                <span>{formatCurrency(cart.productResponse.price * quantity)}</span>
                             )}
                         </div>
                         <RiDeleteBin6Line

@@ -254,6 +254,9 @@ const ListView = () => {
             }
         })
     }
+    const indexBodyTemplate = (_: Promotion, options: { rowIndex: number }) => {
+        return <>{options.rowIndex + 1}</>
+    }
 
     return (
         <>
@@ -327,6 +330,7 @@ const ListView = () => {
                     currentPageReportTemplate='Hiển thị từ {first} đến {last} trong tổng số {totalRecords} giảm giá'
                     emptyMessage='Không tim thấy giảm giá nào'
                 >
+                    <Column header='#' body={indexBodyTemplate} />
                     <Column field='name' header='Tên Giảm Giá' sortable />
                     <Column header='Giá Trị Giảm Giá ' body={formatDiscountAndStock} />
                     <Column

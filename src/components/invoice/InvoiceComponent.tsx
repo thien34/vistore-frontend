@@ -42,10 +42,16 @@ const InvoiceComponent: React.FC<InvoiceComponentProps> = ({ data }) => {
 
                         <div className=''>
                             <h3 className='text-lg font-semibold text-gray-700 mb-2'>Khách hàng:</h3>
-                            <p className='text-sm text-gray-600'>Tên khách hàng: {data.client.name}</p>
-                            <p className='text-sm text-gray-600'>Địa chỉ: {data.client.address}</p>
-                            <p className='text-sm text-gray-600'>Email: {data.client.email}</p>
-                            <p className='text-sm text-gray-600'>Số điện thoại: {data.client.phone}</p>
+                            {data.client.name && (
+                                <p className='text-sm text-gray-600'>Tên khách hàng: {data.client.name}</p>
+                            )}
+                            {data.client.address && (
+                                <p className='text-sm text-gray-600'>Địa chỉ: {data.client.address}</p>
+                            )}
+                            {data.client.email && <p className='text-sm text-gray-600'>Email: {data.client.email}</p>}
+                            {data.client.phone && (
+                                <p className='text-sm text-gray-600'>Số điện thoại: {data.client.phone}</p>
+                            )}
                         </div>
 
                         <table className='w-full '>

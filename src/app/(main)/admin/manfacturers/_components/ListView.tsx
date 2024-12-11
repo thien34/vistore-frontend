@@ -139,7 +139,9 @@ const ListView = ({ initialData }: ManufacturerProps) => {
             <Button label='Lưu' icon='pi pi-check' onClick={saveManufacturer} />
         </>
     )
-
+    const indexBodyTemplate = (_: Manufacturer, options: { rowIndex: number }) => {
+        return <>{options.rowIndex + 1}</>
+    }
     return (
         <>
             <Toast ref={toast} />
@@ -164,11 +166,13 @@ const ListView = ({ initialData }: ManufacturerProps) => {
                     header={header}
                 >
                     <Column
-                        selectionMode='multiple'
+                        header='#'
+                        body={indexBodyTemplate}
                         headerStyle={{
                             width: '4rem'
                         }}
-                    ></Column>
+                    />
+
                     <Column
                         field='name'
                         header='Tên Nhà Sản Xuất'

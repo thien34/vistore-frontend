@@ -56,6 +56,10 @@ const VoucherSidebar = ({ visibleRight, setVisibleRight, handleApplyVoucher }: V
         return dayjs(dateString).format('DD/MM/YYYY HH:mm')
     }
 
+    const formatCurrency = (value: number) => {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value)
+    }
+
     return (
         <>
             <Sidebar
@@ -75,12 +79,16 @@ const VoucherSidebar = ({ visibleRight, setVisibleRight, handleApplyVoucher }: V
                             <p className='text-sm text-gray-600'>
                                 Giảm bớt:{' '}
                                 {voucher.discountAmount !== null
-                                    ? `$${voucher.discountAmount}`
+                                    ? formatCurrency(voucher.discountAmount)
                                     : `${voucher.discountPercentage}%`}
                             </p>
-                            <p className='text-sm text-gray-600'>Áp dụng cho đơn hàng từ ${voucher.minOderAmount}</p>
+                            <p className='text-sm text-gray-600'>
+                                Áp dụng cho đơn hàng từ {formatCurrency(voucher.minOderAmount)}
+                            </p>
                             {voucher.maxDiscountAmount && (
-                                <p className='text-sm text-gray-600'>Giảm tối đa: ${voucher.maxDiscountAmount}</p>
+                                <p className='text-sm text-gray-600'>
+                                    Giảm tối đa: {formatCurrency(voucher.maxDiscountAmount)}
+                                </p>
                             )}
                             <div className='mt-4 flex justify-between items-center'>
                                 <button
@@ -207,18 +215,22 @@ const VoucherSidebar = ({ visibleRight, setVisibleRight, handleApplyVoucher }: V
                                                     </p>
                                                 </div>
                                                 <div className='mb-4'>
-                                                    <p className='font-semibold text-gray-700'>
-                                                        Áp dụng cho sản phẩm
-                                                    </p>
+                                                    <p className='font-semibold text-gray-700'>Áp dụng cho sản phẩm</p>
                                                     <p className='text-sm text-gray-600'>
-                                                        Chỉ áp dụng trên Ứng dụng đối với một số sản phẩm nhất định và một số người dùng nhất định tham gia một số khuyến mãi nhất định.
+                                                        Chỉ áp dụng trên Ứng dụng đối với một số sản phẩm nhất định và
+                                                        một số người dùng nhất định tham gia một số khuyến mãi nhất
+                                                        định.
                                                     </p>
                                                     <ul className='list-disc pl-5 text-sm text-gray-600'>
                                                         <li>
-                                                            Trong số các sản phẩm được lựa chọn, có một số sản phẩm không được phép chạy khuyến mại theo quy định của pháp luật.
+                                                            Trong số các sản phẩm được lựa chọn, có một số sản phẩm
+                                                            không được phép chạy khuyến mại theo quy định của pháp luật.
                                                         </li>
                                                         {selectedVoucher.isPublished ? (
-                                                            <li>Sản phẩm của anh ấy áp dụng cho tất cả các đơn hàng đủ điều kiện.</li>
+                                                            <li>
+                                                                Sản phẩm của anh ấy áp dụng cho tất cả các đơn hàng đủ
+                                                                điều kiện.
+                                                            </li>
                                                         ) : (
                                                             <li>Đây là sản phẩm độc quyền của thành viên.</li>
                                                         )}

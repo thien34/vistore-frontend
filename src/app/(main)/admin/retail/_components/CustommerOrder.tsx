@@ -25,6 +25,7 @@ import axios from 'axios'
 import { AutoComplete } from 'primereact/autocomplete'
 import VoucherSidebar from './VoucherSidebar'
 import dayjs from 'dayjs'
+import { AxiosError } from 'axios'
 
 interface CustommerOrderProps {
     orderTotals: {
@@ -43,7 +44,7 @@ interface CustomIsApplicable {
 }
 
 export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: CustommerOrderProps) {
-    const [checked, setChecked] = useState<boolean>(true)
+    const [checked, setChecked] = useState<boolean>(false)
     const [provinces, setProvinces] = useState<Province[]>([])
     const [visible, setVisible] = useState<boolean>(false)
     const [amountPaid, setAmountPaid] = useState<number>(0)
@@ -107,11 +108,11 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
             setValidVouchers(validVoucherList)
             setAmountPaidLocal(orderTotals.subtotal + orderTotals.shippingCost + orderTotals.tax - totalDiscount)
 
-            if (validVoucherList.length === 0) {
+            if (validVoucherList.length === 0 && couponCodes.length > 0 && customer) {
                 setMessage('Không tìm thấy phiếu giảm giá hợp lệ.')
             }
-        } catch (error: any) {
-            if (error.response && error.response.data && error.response.data.message) {
+        } catch (error: unknown) {
+            if (error instanceof AxiosError && error.response && error.response.data && error.response.data.message) {
                 toast.current?.show({
                     severity: 'error',
                     summary: 'Voucher Error',
@@ -466,6 +467,7 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
                         addressDetail: ''
                     })
                     setAddressDetail(null)
+                    setChecked(false)
                 }
             })
         }
@@ -485,6 +487,9 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
                 life: 3000
             })
     }, [amountPaid])
+    const formatCurrency = (value: number) => {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value)
+    }
 
     return (
         <div className='space-y-4 w-full'>
@@ -701,12 +706,14 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
                                                                     )}
                                                                     {voucher.minOderAmount && (
                                                                         <p>
-                                                                            Min Order Amount: ${voucher.minOderAmount}
+                                                                            Min Order Amount:{' '}
+                                                                            {formatCurrency(voucher.minOderAmount)}
                                                                         </p>
                                                                     )}
                                                                     {voucher.maxDiscountAmount && (
                                                                         <p>
-                                                                            Max Discount: ${voucher.maxDiscountAmount}
+                                                                            Max Discount:{' '}
+                                                                            {formatCurrency(voucher.maxDiscountAmount)}
                                                                         </p>
                                                                     )}
                                                                     <p>
@@ -764,7 +771,7 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
                             <dl className='flex items-center justify-between gap-4 py-3'>
                                 <dt className='text-base font-normal text-gray-500 dark:text-gray-400'>Tổng phụ</dt>
                                 <dd className='text-base font-medium text-gray-900 dark:text-white'>
-                                    ${orderTotals.subtotal.toFixed(2)}
+                                    {formatCurrency(orderTotals.subtotal)}
                                 </dd>
                             </dl>
                             <dl className='flex items-center justify-between gap-4 py-3'>
@@ -772,25 +779,24 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
                                     Chi phí vận chuyển
                                 </dt>
                                 <dd className='text-base font-medium text-gray-900 dark:text-white'>
-                                    ${orderTotals.shippingCost.toFixed(2)}
+                                    {formatCurrency(orderTotals.shippingCost)}
                                 </dd>
                             </dl>
                             <dl className='flex items-center justify-between gap-4 py-3'>
                                 <dt className='text-base font-normal text-gray-500 dark:text-gray-400'>Giảm giá</dt>
                                 <dd className='text-base font-medium text-gray-900 dark:text-white'>
-                                    ${totalDiscount.toFixed(2)}
+                                    {formatCurrency(totalDiscount)}
                                 </dd>
                             </dl>
                             <dl className='flex items-center justify-between gap-4 py-3'>
                                 <dt className='text-base font-normal text-gray-500 dark:text-gray-400'>Tổng cộng</dt>
                                 <dd className='text-base font-medium text-gray-900 dark:text-white'>
-                                    $
-                                    {(
+                                    {formatCurrency(
                                         orderTotals.subtotal +
-                                        orderTotals.shippingCost +
-                                        orderTotals.tax -
-                                        totalDiscount
-                                    ).toFixed(2)}
+                                            orderTotals.shippingCost +
+                                            orderTotals.tax -
+                                            totalDiscount
+                                    )}
                                 </dd>
                             </dl>
                             <dl className='flex items-center justify-between gap-4 py-3'>

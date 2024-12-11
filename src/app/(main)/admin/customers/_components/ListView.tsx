@@ -63,13 +63,6 @@ const ListView = ({ initialData }: CustomerProps) => {
                     className='mr-2'
                     onClick={() => router.push(`/admin/customers/${rowData.id}`)}
                 />
-                <Button
-                    icon='pi pi-trash'
-                    rounded
-                    outlined
-                    severity='danger'
-                    // onClick={() => confirmDeleteProduct(rowData)}
-                />
             </>
         )
     }
@@ -87,6 +80,10 @@ const ListView = ({ initialData }: CustomerProps) => {
             </span>
         </div>
     )
+
+    const indexBodyTemplate = (_: Customer, options: { rowIndex: number }) => {
+        return <>{options.rowIndex + 1}</>
+    }
 
     return (
         <>
@@ -112,10 +109,11 @@ const ListView = ({ initialData }: CustomerProps) => {
                     header={header}
                 >
                     <Column
-                        selectionMode='multiple'
                         headerStyle={{
                             width: '4rem'
                         }}
+                        header='#'
+                        body={indexBodyTemplate}
                     ></Column>
                     <Column field='email' header='Email' sortable />
                     <Column

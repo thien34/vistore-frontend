@@ -13,7 +13,8 @@ import { classNames } from 'primereact/utils'
 import customerService from '@/service/customer.service'
 import { useRouter } from 'next/navigation'
 import RequiredIcon from '@/components/icon/RequiredIcon'
-
+import Link from 'next/link'
+import Image from 'next/image'
 interface FormProps {
     roles: RoleName[]
 }
@@ -62,7 +63,12 @@ const CustomerForm = ({ roles }: FormProps) => {
             <div className='flex'>
                 <div className='col-12 md:col-8'>
                     <div className='card'>
-                        <h4>Thêm Khách Hàng</h4>
+                        <div className='flex justify-between items-center gap-2'>
+                            <h4>Thêm Khách Hàng</h4>
+                            <Link href={`/admin/customers`}>
+                                <Image src={'/layout/images/btn-back.png'} alt='ViStore' width='20' height='20' />
+                            </Link>
+                        </div>
                         <div className='field'>
                             <label htmlFor='email' className='font-medium w-full'>
                                 Email <RequiredIcon />
@@ -191,7 +197,7 @@ const CustomerForm = ({ roles }: FormProps) => {
                 </div>
             </div>
             <div className='mt-3'>
-                <Button label='Nộp' onClick={() => saveCustomer()} />
+                <Button label='Lưu' onClick={() => saveCustomer()} />
             </div>
         </>
     )

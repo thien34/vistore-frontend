@@ -23,6 +23,7 @@ import productAttributeService from '@/service/productAttribute.service'
 import { useMountEffect } from 'primereact/hooks'
 import { confirmDialog, ConfirmDialog } from 'primereact/confirmdialog'
 import AtbDialog from '../../add/_components/AtbDialog'
+import Link from 'next/link'
 
 type AttributeRow = {
     selectedAttribute: ProductAttributeName | null
@@ -318,10 +319,20 @@ const ProductDetailsForm: React.FC<Props> = ({ product }) => {
         setAtbDialogVisible(false)
         fetchAttributes()
     }
+    const isAddAttributeDisabled = () => {
+        const availableAttributes = getAvailableAttributes()
+        return availableAttributes.length === 0
+    }
     return (
         <div className='card'>
             <Toast ref={toast} />
-            <h4>Cập Nhật Chi Tiết Sản Phẩm</h4>
+            <div className='flex justify-between items-center gap-2'>
+                <h4>Cập Nhật Chi Tiết Sản Phẩm</h4>
+                <Link href={`/admin/products/${product.id}`}>
+                    <Image src={'/layout/images/btn-back.png'} alt='ViStore' width='20' height='20' />
+                </Link>
+            </div>
+
             <div className='flex flex-column gap-4'>
                 {discount && (
                     <div className='mb-3'>
@@ -587,13 +598,17 @@ const ProductDetailsForm: React.FC<Props> = ({ product }) => {
                                 />
                             </div>
                         ))}
-                        <Button onClick={addAttributeRow} className='flex items-center mb-5'>
+                        <Button
+                            disabled={isAddAttributeDisabled()}
+                            onClick={addAttributeRow}
+                            className='flex items-center mb-5'
+                        >
                             <i className={PrimeIcons.PLUS}></i>
                             <span className='ml-2'>Thêm thuộc tính</span>
                         </Button>
                     </AccordionTab>
                 </Accordion>
-                <Button label='Save' onClick={handleSave} />
+                <Button label='Lưu' onClick={handleSave} />
                 <ConfirmDialog />
                 <AtbDialog
                     visible={atbDialogVisible}

@@ -18,7 +18,8 @@ import { AddressesResponse, Province } from '@/interface/address.interface'
 import AddressForm from './AddressForm'
 import addressService from '@/service/address.service'
 import RequiredIcon from '@/components/icon/RequiredIcon'
-
+import Link from 'next/link'
+import Image from 'next/image'
 interface FormProps {
     roles: RoleName[]
     initialData: Customer
@@ -116,7 +117,12 @@ const CustomerForm = ({ roles, initialData, initAddresses, provinces, customerId
             <div className='flex gap-x-4'>
                 <div className='w-2/3'>
                     <div className='card h-full'>
-                        <h4>Cập Nhật Khách Hàng</h4>
+                        <div className='flex justify-between items-center gap-2'>
+                            <h4>Cập Nhật Khách Hàng</h4>
+                            <Link href={`/admin/customers`}>
+                                <Image src={'/layout/images/btn-back.png'} alt='ViStore' width='20' height='20' />
+                            </Link>
+                        </div>
                         <div className='field'>
                             <label htmlFor='email' className='font-medium w-full'>
                                 Email
@@ -283,7 +289,7 @@ const CustomerForm = ({ roles, initialData, initAddresses, provinces, customerId
                 </DataTable>
             </div>
             <div className='my-3'>
-                <Button label='Submit' onClick={() => saveCustomer()} />
+                <Button label='Lưu' onClick={() => saveCustomer()} />
             </div>
             <AddressForm
                 provinces={provinces}

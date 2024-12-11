@@ -174,6 +174,7 @@ export default function ProductListComponent({
                     life: 3000
                 })
             })
+        setQuantity(1)
     }
 
     function handleCartItemDelete(cart: CartResponse, event: React.MouseEvent<HTMLElement>): void {

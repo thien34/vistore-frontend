@@ -95,27 +95,42 @@ const ListView = ({ initialData, initialNodes }: CategoryProps) => {
                     detail: 'Danh mục đã được tạo',
                     life: 3000
                 })
+                setCategoryDialog(false)
+                setCategory(emptyCategory)
             } else {
                 const originalCategory = categories.find((cat) => cat.id === category.id)
                 if (
                     category.id == originalCategory?.id &&
                     category.name == originalCategory.name &&
                     category.categoryParentId == originalCategory.categoryParentId &&
-                    category.linkImg == originalCategory.linkImg
+                    category.linkImg == originalCategory.linkImg &&
+                    category.description == originalCategory.description
                 ) {
                     setCategoryDialog(false)
                     return
                 }
-                await categoryService.update(category.id, category)
-                toast.current?.show({
-                    severity: 'success',
-                    summary: 'Thành công',
-                    detail: 'Danh mục đã được cập nhật',
-                    life: 3000
-                })
+                await categoryService
+                    .update(category.id, category)
+                    .then(() => {
+                        toast.current?.show({
+                            severity: 'success',
+                            summary: 'Thành công',
+                            detail: 'Danh mục đã được cập nhật',
+                            life: 3000
+                        })
+                        setCategoryDialog(false)
+                        setCategory(emptyCategory)
+                    })
+                    .catch((error) => {
+                        toast.current?.show({
+                            severity: 'error',
+                            summary: 'Thất bại',
+                            detail: error.message,
+                            life: 3000
+                        })
+                    })
             }
-            setCategoryDialog(false)
-            setCategory(emptyCategory)
+
             await fetchCategories()
         }
     }
@@ -184,6 +199,9 @@ const ListView = ({ initialData, initialNodes }: CategoryProps) => {
             <Button label='Lưu' icon='pi pi-check' onClick={saveCategory} />
         </>
     )
+    const indexBodyTemplate = (_: Category, options: { rowIndex: number }) => {
+        return <>{options.rowIndex + 1}</>
+    }
 
     return (
         <>
@@ -209,10 +227,11 @@ const ListView = ({ initialData, initialNodes }: CategoryProps) => {
                     header={header}
                 >
                     <Column
-                        selectionMode='multiple'
                         headerStyle={{
                             width: '4rem'
                         }}
+                        header='#'
+                        body={indexBodyTemplate}
                     />
                     <Column
                         className='flex justify-center h-full'

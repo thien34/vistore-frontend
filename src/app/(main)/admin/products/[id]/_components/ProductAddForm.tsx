@@ -71,7 +71,12 @@ const ProductAddForm = ({ categories, manufacturers, product, products }: Produc
     return (
         <div className='card'>
             <Toast ref={toast} />
-            <h4>Cập Nhật Sản Phẩm</h4>
+            <div className='flex justify-between items-center gap-2'>
+                <h4>Cập Nhật Sản Phẩm</h4>
+                <Link href={'/admin/products'}>
+                    <Image src={'/layout/images/btn-back.png'} alt='ViStore' width='20' height='20' />
+                </Link>
+            </div>
             <div className='flex flex-column gap-4'>
                 <div className='flex flex-row gap-4'>
                     <div className='flex flex-column gap-2 w-full'>

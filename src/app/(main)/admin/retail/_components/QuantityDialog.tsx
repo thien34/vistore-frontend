@@ -15,7 +15,15 @@ interface QuantityDialogProps {
 
 const QuantityDialog = ({ visible, setVisible, product, quantity, setQuantity, onSave }: QuantityDialogProps) => {
     return (
-        <Dialog header={product?.name} visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+        <Dialog
+            header={product?.name}
+            visible={visible}
+            style={{ width: '50vw' }}
+            onHide={() => {
+                setVisible(false)
+                setQuantity(1)
+            }}
+        >
             <div>
                 <span className='text-lg font-semibold text-gray-600'>Số lượng có sẵn: {product?.quantity}</span>
                 {product?.attributes.map((attribute) => (

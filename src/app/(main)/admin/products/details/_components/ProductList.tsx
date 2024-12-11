@@ -1,7 +1,7 @@
 'use client'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
-import { ProductResponse, ProductResponseDetails } from '@/interface/Product'
+import { ProductResponse } from '@/interface/Product'
 import { Button } from 'primereact/button'
 import Link from 'next/link'
 import { Image } from 'primereact/image'
@@ -45,6 +45,28 @@ function ProductList({ products }: Props) {
                 paginatorTemplate='RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink'
                 currentPageReportTemplate='Hiển thị từ {first} đến {last} trong tổng số {totalRecords} sản phẩm'
             >
+                <Column
+                    header='#'
+                    body={indexBodyTemplate}
+                    headerStyle={{
+                        width: '4rem'
+                    }}
+                />
+                <Column
+                    header='Ảnh'
+                    body={(rowData) => (
+                        <Image
+                            src={rowData.imageUrl || '/demo/images/default/—Pngtree—sneakers_3989154.png'}
+                            width='70px'
+                            height='70px'
+                            alt={rowData.name ?? 'Product Image'}
+                            onError={(e) =>
+                                ((e.target as HTMLImageElement).src =
+                                    '/demo/images/default/—Pngtree—sneakers_3989154.png')
+                            }
+                        />
+                    )}
+                />
                 <Column field='name' header='Tên Sản Phẩm'></Column>
                 <Column field='categoryName' header='Danh Mục'></Column>
                 <Column field='manufacturerName' header='Nhà Sản Xuất'></Column>

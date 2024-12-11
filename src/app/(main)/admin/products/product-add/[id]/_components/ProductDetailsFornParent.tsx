@@ -23,6 +23,7 @@ import RequiredIcon from '@/components/icon/RequiredIcon'
 import productAttributeService from '@/service/productAttribute.service'
 import { useMountEffect } from 'primereact/hooks'
 import AtbDialog from '../../../add/_components/AtbDialog'
+import Link from 'next/link'
 type AttributeRow = {
     selectedAttribute: ProductAttributeName | null
     selectedValues: string | undefined
@@ -303,10 +304,19 @@ const ProductDetailsFormParent: React.FC<Props> = ({ product, id, name }) => {
         setAtbDialogVisible(false)
         fetchAttributes()
     }
+    const isAddAttributeDisabled = () => {
+        const availableAttributes = getAvailableAttributes()
+        return availableAttributes.length === 0
+    }
     return (
         <div className='card'>
             <Toast ref={toast} />
-            <h5>Thêm Chi Tiết Sản Phẩm</h5>
+            <div className='flex justify-between items-center gap-2'>
+                <h5>Thêm Chi Tiết Sản Phẩm</h5>
+                <Link href={`/admin/products/${id}`}>
+                    <Image src={'/layout/images/btn-back.png'} alt='ViStore' width='20' height='20' />
+                </Link>
+            </div>
             <div className='flex flex-column gap-4'>
                 {discount && (
                     <div className='mb-3'>
@@ -395,7 +405,8 @@ const ProductDetailsFormParent: React.FC<Props> = ({ product, id, name }) => {
                                 mode='currency'
                                 disabled={!!discount}
                                 className={discount ? 'p-disabled' : errors.price ? 'p-invalid' : ''}
-                                currency='USD'
+                                currency='VND'
+                                locale='vi-VN'
                                 max={1000000}
                             />
                             {errors.price && <small className='p-error'>{errors.price}</small>}
@@ -425,7 +436,8 @@ const ProductDetailsFormParent: React.FC<Props> = ({ product, id, name }) => {
                                 max={1000000}
                                 mode='currency'
                                 className={errors.productCost ? 'p-invalid' : ''}
-                                currency='USD'
+                                currency='VND'
+                                locale='vi-VN'
                             />
                             {errors.productCost && <small className='p-error'>{errors.productCost}</small>}
                         </div>
@@ -555,9 +567,13 @@ const ProductDetailsFormParent: React.FC<Props> = ({ product, id, name }) => {
                                 />
                             </div>
                         ))}
-                        <Button onClick={addAttributeRow} className='flex items-center mb-5'>
+                        <Button
+                            disabled={isAddAttributeDisabled()}
+                            onClick={addAttributeRow}
+                            className='flex items-center mb-5'
+                        >
                             <i className={PrimeIcons.PLUS}></i>
-                            <span className='ml-2'>Add attribute</span>
+                            <span className='ml-2'>Thêm thuộc tính</span>
                         </Button>
                     </AccordionTab>
                 </Accordion>
