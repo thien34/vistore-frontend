@@ -76,3 +76,9 @@ export interface ProductParentRequest {
     categoryId: number
     manufacturerId: number
 }
+
+export interface ProductFilter {
+    name?: string
+    categoryId?: number
+    manufacturerId?: number
+}

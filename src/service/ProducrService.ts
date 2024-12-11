@@ -1,4 +1,4 @@
-import { ProductParentRequest, ProductRequest, ProductResponse, ProductResponseDetails } from '@/interface/Product'
+import { ProductFilter, ProductParentRequest, ProductRequest, ProductResponse, ProductResponseDetails } from '@/interface/Product'
 
 class ProductService {
     static async addProducts(productsData: ProductRequest[], uploadedFiles: File[][]) {
@@ -25,8 +25,9 @@ class ProductService {
         return response.json()
     }
 
-    static async getAllProducts(): Promise<ProductResponse[]> {
-        const response = await fetch('http://localhost:8080/api/admin/products', { cache: 'no-store' })
+    static async getAllProducts(filter: ProductFilter): Promise<ProductResponse[]> {
+        const params = new URLSearchParams(filter as Record<string, string>)
+        const response = await fetch(`http://localhost:8080/api/admin/products?${params}`, { cache: 'no-store' })
 
         if (!response.ok) {
             const errorResponse = await response.json()
