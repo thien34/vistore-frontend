@@ -178,8 +178,8 @@ const VoucherSidebar = ({ visibleRight, setVisibleRight, handleApplyVoucher }: V
                                                         </span>
                                                         <span className='bg-white text-orange-500 px-2 py-1 rounded-full'>
                                                             {selectedVoucher.isCumulative
-                                                                ? 'Tích lũy'
-                                                                : 'Không tích lũy'}
+                                                                ? 'Cộng dồn'
+                                                                : 'Không cộng dồn'}
                                                         </span>
                                                     </p>
                                                 </div>

@@ -238,7 +238,7 @@ const VoucherUpdateDefaultBirthday = () => {
                             checked={isCumulative}
                         />
                         <label htmlFor='ingredient' className='ml-2'>
-                            Tích lũy với các giảm giá khác
+                            Cộng dồn với các giảm giá khác
                         </label>
                     </div>
                     <div className='flex justify-between'>
