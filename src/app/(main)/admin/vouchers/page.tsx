@@ -226,7 +226,7 @@ const ListView = () => {
                 life: 3000
             })
         } catch (error: unknown) {
-            console.error('Error marking promotion as expired:', error)
+            console.error('Khuyến mãi đã được đánh dấu là hết hạn:', error)
             toast.current?.show({
                 severity: 'error',
                 summary: 'Lỗi',

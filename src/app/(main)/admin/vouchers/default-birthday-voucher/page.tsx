@@ -267,7 +267,7 @@ const VoucherUpdateDefaultBirthday = () => {
                             {errors.perCustomerLimit && <small className='p-error'>{errors.perCustomerLimit}</small>}
                         </div>
                     </div>
-                    <Button className='mt-4' label='Update Voucher' icon='pi pi-check' onClick={handleUpdateVoucher} />
+                    <Button className='mt-4' label='Cập nhật' icon='pi pi-check' onClick={handleUpdateVoucher} />
                 </div>
             </div>
         </div>
