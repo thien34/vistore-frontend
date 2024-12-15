@@ -499,7 +499,7 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
                         ) {
                             toast.current?.show({
                                 severity: 'error',
-                                summary: 'Error',
+                                summary: 'Lỗi',
                                 detail: 'Vui lòng chọn nhập địa chỉ'
                             })
                             return
@@ -510,7 +510,7 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
                             if (res.status === 200) {
                                 toast.current?.show({
                                     severity: 'success',
-                                    summary: 'Success',
+                                    summary: 'Thành công',
                                     detail: 'Đơn hàng đã được tạo thành công'
                                 })
                                 await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -524,7 +524,7 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
                         .catch((error) => {
                             toast.current?.show({
                                 severity: 'error',
-                                summary: 'Error',
+                                summary: 'Lỗi',
                                 detail: error instanceof Error ? error.message : 'Đã xảy ra lỗi'
                             })
                         })
@@ -567,7 +567,7 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
         if (amountPaid > 0)
             toast.current?.show({
                 severity: 'success',
-                summary: 'Success',
+                summary: 'Thành công',
                 detail: 'Đã lưu thanh toán thành công',
                 life: 3000
             })
@@ -590,7 +590,7 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
         if (!customer && e.value) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
+                summary: 'Lỗi',
                 detail: 'Vui lòng chọn khách hàng'
             })
             return
@@ -773,7 +773,7 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
                                     {validVouchers.length > 0 && (
                                         <div className='mt-4'>
                                             <h3 className='text-sm font-semibold text-green-700 mb-3'>
-                                                Valid Vouchers:
+                                                Mã giảm giá hợp lệ:
                                             </h3>
                                             <ul className='grid grid-cols-2 gap-3 max-h-40 border border-green-200 rounded-md p-3'>
                                                 {validVouchers.map((voucher: Voucher, index) => (
@@ -796,13 +796,13 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
                                                         {hoveredVoucher?.id === voucher.id && (
                                                             <div className='absolute bg-white shadow-lg p-4 rounded-lg w-64 border border-gray-300 mt-60 z-20'>
                                                                 <h4 className='font-semibold text-sm text-green-700'>
-                                                                    Voucher Conditions
+                                                                    Điều kiện sử dụng mã giảm giá
                                                                 </h4>
                                                                 <div className='text-xs text-gray-600 mt-2 space-y-2'>
                                                                     {(voucher.discountPercent ||
                                                                         voucher.discountAmount) && (
                                                                         <p>
-                                                                            Discount:{' '}
+                                                                            Giảm giá:{' '}
                                                                             {voucher.discountPercent
                                                                                 ? `${voucher.discountPercent}%`
                                                                                 : `$${voucher.discountAmount}`}
@@ -810,18 +810,18 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
                                                                     )}
                                                                     {voucher.minOderAmount && (
                                                                         <p>
-                                                                            Min Order Amount:{' '}
+                                                                            Số tiền đặt hàng tối thiểu:{' '}
                                                                             {formatCurrency(voucher.minOderAmount)}
                                                                         </p>
                                                                     )}
                                                                     {voucher.maxDiscountAmount && (
                                                                         <p>
-                                                                            Max Discount:{' '}
+                                                                            Giảm giá tối đa:{' '}
                                                                             {formatCurrency(voucher.maxDiscountAmount)}
                                                                         </p>
                                                                     )}
                                                                     <p>
-                                                                        Validity: {formatDate(voucher.startDateUtc)} -{' '}
+                                                                        Hiệu lực: {formatDate(voucher.startDateUtc)} -{' '}
                                                                         {formatDate(voucher.endDateUtc)}
                                                                     </p>
                                                                 </div>
@@ -835,7 +835,7 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
                                     {couponCodes.length > 0 && (
                                         <div className='mt-4'>
                                             <h3 className='text-sm font-semibold text-blue-700 mb-2'>
-                                                Entered Coupon Codes:
+                                                Nhập mã giảm giá:
                                             </h3>
                                             <ul className='grid grid-cols-2 gap-2 max-h-40 overflow-y-auto border border-gray-200 rounded-md p-2'>
                                                 {couponCodes.map((code, index) => (
@@ -858,7 +858,7 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
                                                     onClick={handleClearCouponCodes}
                                                     className='px-4 py-2 bg-red-500 text-white font-medium rounded-md hover:bg-red-600 transition-colors text-sm'
                                                 >
-                                                    Clear All
+                                                    Xóa tất cả
                                                 </button>
                                             </div>
                                         </div>

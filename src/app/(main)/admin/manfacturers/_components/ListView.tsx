@@ -64,7 +64,7 @@ const ListView = ({ initialData }: ManufacturerProps) => {
                 await manufacturerService.create(manufacturer)
                 toast.current?.show({
                     severity: 'success',
-                    summary: 'Successful',
+                    summary: 'Thành công',
                     detail: 'Nhà sản xuất đã tạo thành công',
                     life: 3000
                 })
@@ -72,7 +72,7 @@ const ListView = ({ initialData }: ManufacturerProps) => {
                 await manufacturerService.update(manufacturer.id, manufacturer)
                 toast.current?.show({
                     severity: 'success',
-                    summary: 'Successful',
+                    summary: 'Thành công',
                     detail: 'Nhà sản xuất đã cập nhật thành công',
                     life: 3000
                 })
@@ -131,7 +131,7 @@ const ListView = ({ initialData }: ManufacturerProps) => {
 
     const header = (
         <div className='flex flex-column md:flex-row md:justify-content-between md:align-items-center'>
-            <h5 className='m-0'>Quản lý Nhà Sản Xuất</h5>
+            <h5 className='m-0'>Quản Lý Nhà Sản Xuất</h5>
             <span className='block mt-2 md:mt-0 p-input-icon-left'>
                 <i className='pi pi-search' />
                 <InputText
@@ -219,7 +219,7 @@ const ListView = ({ initialData }: ManufacturerProps) => {
             >
                 <div className='field'>
                     <label htmlFor='name' className='font-bold'>
-                        Name <RequiredIcon />
+                        Tên Nhà Sản Xuất <RequiredIcon />
                     </label>
                     <InputText
                         id='name'
@@ -233,7 +233,7 @@ const ListView = ({ initialData }: ManufacturerProps) => {
                 </div>
                 <div className='field'>
                     <label htmlFor='description' className='font-bold'>
-                        Description
+                        Mô Tả
                     </label>
                     <InputText
                         id='description'

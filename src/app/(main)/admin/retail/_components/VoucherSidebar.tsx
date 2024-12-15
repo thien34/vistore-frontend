@@ -68,7 +68,7 @@ const VoucherSidebar = ({ visibleRight, setVisibleRight, handleApplyVoucher }: V
                 onHide={() => setVisibleRight(false)}
                 style={{ width: '400px' }}
             >
-                <h2 className='text-xl font-semibold mb-4'>List Voucher</h2>
+                <h2 className='text-xl font-semibold mb-4'>Danh sách phiếu giảm giá</h2>
                 <div className='space-y-4 p-4'>
                     {vouchers.map((voucher) => (
                         <div key={voucher.id} className='bg-white p-4 rounded-lg shadow-lg border border-gray-200'>
@@ -113,14 +113,14 @@ const VoucherSidebar = ({ visibleRight, setVisibleRight, handleApplyVoucher }: V
                                             )}
                                         </>
                                     ) : (
-                                        <span>Apply</span>
+                                        <span>Áp dụng</span>
                                     )}
                                 </button>
                                 <button
                                     onClick={() => handleOpen(voucher)}
                                     className='text-blue-600 text-sm hover:underline'
                                 >
-                                    Condition
+                                    Chi tiết
                                 </button>
 
                                 {isOpen && selectedVoucher && (
@@ -139,7 +139,7 @@ const VoucherSidebar = ({ visibleRight, setVisibleRight, handleApplyVoucher }: V
                                                     <div className='flex-grow'>
                                                         <p className='font-semibold text-lg'>{selectedVoucher.name}</p>
                                                         <p className='text-sm'>
-                                                            Minimum Application ${selectedVoucher.minOderAmount}.00
+                                                            Áp dụng tối thiểu {selectedVoucher.minOderAmount}.00 đ
                                                         </p>
                                                     </div>
                                                 </div>
@@ -159,7 +159,7 @@ const VoucherSidebar = ({ visibleRight, setVisibleRight, handleApplyVoucher }: V
                                                                         (startDate.getTime() - now.getTime()) /
                                                                             (1000 * 60 * 60 * 24)
                                                                     )
-                                                                    return `Take effect later ${timeUntilStart} days`
+                                                                    return `Có hiệu lực sau ${timeUntilStart} ngày`
                                                                 } else if (
                                                                     startDate &&
                                                                     endDate &&
@@ -170,16 +170,16 @@ const VoucherSidebar = ({ visibleRight, setVisibleRight, handleApplyVoucher }: V
                                                                         (endDate.getTime() - now.getTime()) /
                                                                             (1000 * 60 * 60 * 24)
                                                                     )
-                                                                    return `Valid for ${timeUntilEnd} days`
+                                                                    return `Có giá trị cho ${timeUntilEnd} ngày`
                                                                 } else {
-                                                                    return 'Expired'
+                                                                    return 'Hết hạn'
                                                                 }
                                                             })()}
                                                         </span>
                                                         <span className='bg-white text-orange-500 px-2 py-1 rounded-full'>
                                                             {selectedVoucher.isCumulative
-                                                                ? 'Cumulative'
-                                                                : 'Non-cumulative'}
+                                                                ? 'Tích lũy'
+                                                                : 'Không tích lũy'}
                                                         </span>
                                                     </p>
                                                 </div>
@@ -194,7 +194,7 @@ const VoucherSidebar = ({ visibleRight, setVisibleRight, handleApplyVoucher }: V
                                                     </p>
                                                 </div>
                                                 <div className='mb-4'>
-                                                    <p className='font-semibold text-gray-700'>Cho</p>
+                                                    <p className='font-semibold text-gray-700'>Ưu đãi</p>
                                                     <p className='text-sm text-gray-600'>
                                                         Số lượng sử dụng có hạn. Nhanh lên hoặc bỏ lỡ! Giảm giá{' '}
                                                         {selectedVoucher.discountPercentage ? (
@@ -248,7 +248,7 @@ const VoucherSidebar = ({ visibleRight, setVisibleRight, handleApplyVoucher }: V
                                                     onClick={handleClose}
                                                     className='bg-red-500 text-white font-medium px-4 py-2 rounded-md hover:bg-red-600 transition'
                                                 >
-                                                    Close
+                                                    Đóng
                                                 </button>
                                             </div>
                                         </div>

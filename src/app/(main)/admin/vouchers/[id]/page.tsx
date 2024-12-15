@@ -45,7 +45,7 @@ const VoucherUpdate = () => {
             console.log(customersData)
             setInitialCustomers(customersData)
         } catch (error) {
-            console.error('Error fetching customers:', error)
+            console.error('Lỗi khi lấy dữ liệu khách hàng:', error)
         }
     }
     const validateForm = () => {
@@ -53,15 +53,15 @@ const VoucherUpdate = () => {
         const currentDate = new Date()
 
         if (!discountName.trim()) {
-            newErrors.discountName = 'Voucher name is required.'
+            newErrors.discountName = 'Tên voucher là bắt buộc.'
         }
         if (limitationTimes <= 0) {
-            newErrors.limitationTimes = 'Limitation times must be greater than 0.'
+            newErrors.limitationTimes = 'Thời gian giới hạn phải lớn hơn 0.'
         }
         if (!toDate) {
-            newErrors.toDate = 'End date is required.'
+            newErrors.toDate = 'Ngày kết thúc là bắt buộc.'
         } else if (toDate <= currentDate) {
-            newErrors.toDate = 'End date must be greater than the current time.'
+            newErrors.toDate = 'Ngày kết thúc phải lớn hơn thời gian hiện tại.'
         }
 
         setErrors(newErrors)
@@ -72,8 +72,8 @@ const VoucherUpdate = () => {
         if (!validateForm()) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Validation Failed',
-                detail: 'Please correct the highlighted errors before updating.',
+                summary: 'Xác nhận không thành công',
+                detail: 'Vui lòng sửa các lỗi được tô đậm trước khi cập nhật.',
                 life: 3000
             })
             return
@@ -90,16 +90,16 @@ const VoucherUpdate = () => {
             await axios.put(`http://localhost:8080/api/admin/vouchers/${params.id}`, updatedVoucher)
             toast.current?.show({
                 severity: 'success',
-                summary: 'Voucher Updated',
-                detail: 'Voucher has been successfully updated.',
+                summary: 'Cập nhật thành công',
+                detail: 'Voucher đã được cập nhật thành công.',
                 life: 3000
             })
             router.push('/admin/vouchers')
         } catch (error: any) {
-            const errorMessage = error.response?.data?.message || 'Failed to update voucher. Please try again later.'
+            const errorMessage = error.response?.data?.message || 'Cập nhật voucher thất bại. Vui lòng thử lại sau.'
             toast.current?.show({
                 severity: 'error',
-                summary: 'Update Failed',
+                summary: 'Cập nhật không thành công',
                 detail: errorMessage,
                 life: 5000000
             })
@@ -129,12 +129,12 @@ const VoucherUpdate = () => {
             const voucherEndDate = new Date(voucherData.endDateUtc)
             setIsExpired(currentDate > voucherEndDate)
         } catch (error) {
-            console.error('Error fetching voucher details:', error)
+            console.error('Lỗi khi lấy dữ liệu voucher chi tiết:', error)
         }
     }
     const content = (
         <div className='flex align-items-center my-2'>
-            <div className='ml-2'>This voucher has expired and cannot be edited.</div>
+            <div className='ml-2'>Voucher này đã hết hạn và không thể chỉnh sửa.</div>
         </div>
     )
 
@@ -154,8 +154,8 @@ const VoucherUpdate = () => {
                 setToDate(newMinToDate)
                 toast.current?.show({
                     severity: 'info',
-                    summary: 'Notice',
-                    detail: 'The end time has been adjusted to be at least 1 hour from the start time.',
+                    summary: 'Chú ý',
+                    detail: 'Thời gian kết thúc đã được điều chỉnh để ít nhất 1 giờ kể từ thời gian bắt đầu.',
                     life: 3000
                 })
             }
@@ -188,12 +188,12 @@ const VoucherUpdate = () => {
             <Toast ref={toast} />
             <div className='p-fluid grid mt-4'>
                 <div className='col-12 md:col-6'>
-                    <h3>Update Voucher</h3>
-                    <p>{isPublished ? 'Published vouchers' : 'Private vouchers'}</p>
+                    <h3>Cập nhật Voucher</h3>
+                    <p>{isPublished ? 'Voucher công khai' : 'Voucher riêng tư'}</p>
                     <ToggleButton
                         disabled
-                        onLabel='Public'
-                        offLabel='Private'
+                        onLabel='Công khai'
+                        offLabel='Riêng tư'
                         onIcon='pi pi-lock-open'
                         offIcon='pi pi-lock'
                         checked={isPublished}
@@ -204,24 +204,24 @@ const VoucherUpdate = () => {
                                 setSelectedCustomers([])
                             }
                         }}
-                        className='w-9rem mt-1 mb-5'
+                        className='w-10rem mt-1 mb-5'
                     />
 
                     <div className='field'>
-                        <label htmlFor='voucherName'>Voucher Name</label>
+                        <label htmlFor='voucherName'>Tên voucher</label>
                         <InputText
                             id='voucherName'
                             value={discountName}
                             onChange={(e) => setDiscountName(e.target.value)}
                             required
                             disabled={isExpired}
-                            placeholder='Enter voucher name'
+                            placeholder='Nhập tên voucher'
                         />
                         {errors.discountName && <small className='p-error'>{errors.discountName}</small>}
                     </div>
                     <div className='field'>
                         <div className='flex align-items-center gap-3'>
-                            <span>Use Percentage</span>
+                            <span>Sử dụng tỷ lệ phần trăm</span>
                             <InputSwitch
                                 disabled
                                 id='discountTypeSwitch'
@@ -238,7 +238,7 @@ const VoucherUpdate = () => {
                     </div>
                     <div className='flex'>
                         <div className='field'>
-                            <label htmlFor='value'>Value</label>
+                            <label htmlFor='value'>Giá trị giảm giá</label>
                             <InputNumber
                                 disabled
                                 inputId='value'
@@ -252,13 +252,13 @@ const VoucherUpdate = () => {
                                 mode={usePercentage ? 'decimal' : 'currency'}
                                 currency='VND'
                                 locale='vi-VN'
-                                placeholder='Enter discount value'
+                                placeholder='Nhập giá trị giảm giá'
                             />
                         </div>
                         {usePercentage && (
                             <div className='field ml-5'>
                                 <label className='w-full' htmlFor='maxDiscountAmount'>
-                                    Max Discount Amount
+                                    Số tiền giảm giá tối đa
                                 </label>
                                 <InputNumber
                                     disabled
@@ -277,7 +277,7 @@ const VoucherUpdate = () => {
                         )}
                     </div>
                     <div className='field'>
-                        <label htmlFor='minOrderAmount'>Min Order Amount</label>
+                        <label htmlFor='minOrderAmount'>Số tiền đặt hàng tối thiểu</label>
                         <InputNumber
                             disabled
                             id='minOrderAmount'
@@ -293,7 +293,7 @@ const VoucherUpdate = () => {
                     </div>
                     <div className='flex flex-direction-column gap-6'>
                         <div className='field'>
-                            <label htmlFor='fromDate'>From Date</label>
+                            <label htmlFor='fromDate'>Ngày bắt đầu</label>
                             <Calendar
                                 disabled
                                 id='fromDate'
@@ -303,14 +303,14 @@ const VoucherUpdate = () => {
                                 dateFormat='dd/mm/yy'
                                 showTime
                                 hourFormat='24'
-                                placeholder='Select start date'
+                                placeholder='Chọn ngày bắt đầu'
                                 showButtonBar
                                 required
                             />
                         </div>
 
                         <div className='field'>
-                            <label htmlFor='toDate'>To Date</label>
+                            <label htmlFor='toDate'>Ngày kết thúc</label>
                             <Calendar
                                 disabled={isExpired}
                                 id='toDate'
@@ -320,7 +320,7 @@ const VoucherUpdate = () => {
                                 dateFormat='dd/mm/yy'
                                 showTime
                                 hourFormat='24'
-                                placeholder='Select end date'
+                                placeholder='Chọn ngày kết thúc'
                                 minDate={fromDate ? new Date(fromDate.getTime() + 60 * 60 * 1000) : undefined}
                                 showButtonBar
                                 required
@@ -336,13 +336,13 @@ const VoucherUpdate = () => {
                             checked={isCumulative}
                         />
                         <label htmlFor='ingredient' className='ml-2'>
-                            Cumulative with other discounts
+                            Tích lũy với các giảm giá khác
                         </label>
                     </div>
                     <div className='flex justify-between'>
                         <div className='field flex items-center gap-4 mb-0'>
                             <label className='mb-0' htmlFor='limitationTimes'>
-                                Limitation Times
+                                Lượt khả dụng
                             </label>
                             <InputNumber
                                 disabled={isExpired}
@@ -355,7 +355,7 @@ const VoucherUpdate = () => {
                         </div>
                         <div className='field flex items-center gap-4 mb-0'>
                             <label className='mb-0' htmlFor='perCustomerLimit'>
-                                Per Customer Limit
+                                Lượt sử dụng / khách hàng
                             </label>
                             <InputNumber
                                 disabled
@@ -366,19 +366,20 @@ const VoucherUpdate = () => {
                             />
                         </div>
                     </div>
-                    <div className='flex justify-center gap-2 items-center space-x-2 my-3'>
+                    <div className='field'>
+                        <label className='mt-3'>Nhận xét</label>
                         <InputTextarea
                             disabled={isExpired}
                             value={comments}
                             onChange={(e) => setComments(e.target.value)}
-                            placeholder='Comments'
+                            placeholder='Nhận xét'
                             rows={5}
                             cols={30}
                         />
                     </div>
                     <Button
                         className='mt-4'
-                        label='Update Voucher'
+                        label='Cập nhật'
                         icon='pi pi-check'
                         onClick={handleUpdateVoucher}
                         disabled={isExpired}
@@ -386,13 +387,13 @@ const VoucherUpdate = () => {
                 </div>
 
                 <div className='col-12 md:col-6'>
-                    <h4>Select Customers</h4>
+                    <h4>Chọn khách hàng</h4>
                     <div className='field'>
                         <InputText
                             id='productSearch'
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            placeholder='Search by name'
+                            placeholder='Tìm kiếm theo tên'
                         />
                     </div>
                     <DataTable
@@ -409,7 +410,7 @@ const VoucherUpdate = () => {
                         <Column selectionMode='multiple' headerStyle={{ width: '3em' }} />
                         <Column header='STT' body={(_, { rowIndex }) => rowIndex + 1} sortable />
                         <Column
-                            header='Customer Name'
+                            header='Tên Khách'
                             body={(rowData) => `${rowData.lastName} ${rowData.firstName}`}
                             sortable
                         />

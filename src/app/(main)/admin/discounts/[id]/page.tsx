@@ -81,9 +81,9 @@ const DiscountUpdate = () => {
                 setComments(data.comment || '')
 
                 const appliedProducts: ProductResponse[] = data.appliedProducts || []
-                if (data.status === 'EXPIRED') {
+                if (data.status === 'Đã hết hạn') {
                     setIsExpired(true)
-                } else if (data.status === 'UPCOMING') {
+                } else if (data.status === 'Sắp diễn ra') {
                     setIsExpired(false)
                 } else {
                     setIsExpired(false)
@@ -129,14 +129,14 @@ const DiscountUpdate = () => {
     }, [id])
 
     const showSuccessToast = () => {
-        toast.current?.show({ severity: 'success', summary: 'Success', detail: 'Cập nhật giảm giá thành công!' })
+        toast.current?.show({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật giảm giá thành công!' })
     }
     useEffect(() => {
         validateForm()
     }, [discountName, value, fromDate, toDate, selectedFetchedProducts])
 
     const showFailedToast = () => {
-        toast.current?.show({ severity: 'error', summary: 'Error', detail: 'Cập nhật giảm giá thất bại!' })
+        toast.current?.show({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật giảm giá thất bại!' })
     }
     const filteredProducts = products.filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()))
 
@@ -309,11 +309,11 @@ const DiscountUpdate = () => {
         <div className='flex align-items-center'>
             <img alt='logo' src='https://primefaces.org/cdn/primereact/images/logo.png' width='32' />
             <div className='ml-2'>
-                This sale has expired.
+                Đợt giảm giá này đã hết hạn.
                 <br />
                 <br />
                 <span className='font-medium text-xl text-green-800'>
-                    Discount period: {fromDate ? fromDate.toLocaleString() : 'N/A'} -{' '}
+                    Thời gian giảm giá: {fromDate ? fromDate.toLocaleString() : 'N/A'} -{' '}
                     {toDate ? toDate.toLocaleString() : 'N/A'}
                 </span>
             </div>
@@ -340,7 +340,7 @@ const DiscountUpdate = () => {
             {!isExpired && (
                 <div className='p-fluid grid'>
                     <div className='col-12 md:col-6'>
-                        <h3>Update Discount</h3>
+                        <h3>Cập nhật giảm giá</h3>
 
                         <div className='field'>
                             <label htmlFor='discountName'>Tên Giảm Giá</label>

@@ -127,7 +127,7 @@ const ProductDetailsForm: React.FC<Props> = ({ product }) => {
         if (!isValid) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
+                summary: 'Lỗi',
                 detail: 'Vui lòng điền vào tất cả các trường bắt buộc',
                 life: 3000
             })
@@ -144,7 +144,7 @@ const ProductDetailsForm: React.FC<Props> = ({ product }) => {
         if (filteredAttributes.length === 0) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
+                summary: 'Lỗi',
                 detail: 'Vui lòng chọn ít nhất một thuộc tính',
                 life: 3000
             })
@@ -175,7 +175,7 @@ const ProductDetailsForm: React.FC<Props> = ({ product }) => {
             await ProductService.updateProduct(formData.id, productData).then(() => {
                 toast.current?.show({
                     severity: 'success',
-                    summary: 'Successful',
+                    summary: 'Thành công',
                     detail: 'Sản phẩm đã được cập nhật thành công',
                     life: 3000
                 })
@@ -183,7 +183,7 @@ const ProductDetailsForm: React.FC<Props> = ({ product }) => {
         } catch (error) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
+                summary: 'Lỗi',
                 detail: error instanceof Error ? error.message : 'Đã xảy ra lỗi',
                 life: 3000
             })
@@ -264,7 +264,7 @@ const ProductDetailsForm: React.FC<Props> = ({ product }) => {
             if (!validTypes.includes(file.type)) {
                 toast.current?.show({
                     severity: 'error',
-                    summary: 'Error',
+                    summary: 'Lỗi',
                     detail: 'Chỉ chấp nhận file ảnh định dạng JPG, PNG, GIF hoặc WebP',
                     life: 3000
                 })
@@ -275,7 +275,7 @@ const ProductDetailsForm: React.FC<Props> = ({ product }) => {
             if (file.size > maxSize) {
                 toast.current?.show({
                     severity: 'error',
-                    summary: 'Error',
+                    summary: 'Lỗi',
                     detail: 'Kích thước file không được vượt quá 5MB',
                     life: 3000
                 })
@@ -307,7 +307,7 @@ const ProductDetailsForm: React.FC<Props> = ({ product }) => {
                     .then(() => {
                         toast.current?.show({
                             severity: 'success',
-                            summary: 'Successful',
+                            summary: 'Thành công',
                             detail: 'Thuộc tính sản phẩm đã được thêm thành công',
                             life: 3000
                         })
@@ -316,7 +316,7 @@ const ProductDetailsForm: React.FC<Props> = ({ product }) => {
                     .catch((error) => {
                         toast.current?.show({
                             severity: 'error',
-                            summary: 'Error',
+                            summary: 'Lỗi',
                             detail: error.message,
                             life: 3000
                         })
@@ -514,12 +514,12 @@ const ProductDetailsForm: React.FC<Props> = ({ product }) => {
                                 height={100}
                                 className='object-cover rounded-lg shadow-lg border border-gray-200 mb-2 image ms-20'
                                 src={imageUrl || '/demo/images/default/—Pngtree—sneakers_3989154.png'}
-                                data-pr-tooltip='Product Image'
+                                data-pr-tooltip='Hình ảnh sản phẩm'
                                 alt='Product'
                             />
 
                             <Tooltip target='.upload' />
-                            <label data-pr-tooltip='Upload Image' className='block cursor-pointer upload'>
+                            <label data-pr-tooltip='Tải lên hình ảnh' className='block cursor-pointer upload'>
                                 <input
                                     onChange={handleImageUpload}
                                     type='file'
@@ -549,13 +549,13 @@ const ProductDetailsForm: React.FC<Props> = ({ product }) => {
                     </div>
                 </div>
                 <Accordion className='mt-5' activeIndex={0}>
-                    <AccordionTab header='Attributes'>
+                    <AccordionTab header='Thuộc tính'>
                         {attributeRows.map((row, index) => (
                             <div key={index} className='mb-4 grid grid-cols-3 items-center gap-4'>
                                 <Dropdown
                                     value={attributeRows[index].selectedAttribute}
                                     options={[
-                                        { id: 'add-new', name: '+ Thêm  thuộc tính' },
+                                        { id: 'add-new', name: '+ Thêm thuộc tính' },
                                         ...getAvailableAttributes(),
                                         ...productAttributes.filter((attr) => attr.id === row.selectedAttribute?.id)
                                     ]}

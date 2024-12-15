@@ -27,8 +27,8 @@ const VoucherUpdateDefaultBirthday = () => {
         if (!validateForm()) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Validation Failed',
-                detail: 'Please correct the highlighted errors before updating.',
+                summary: 'Xác nhận không thành công',
+                detail: 'Vui lòng sửa các lỗi được tô đậm trước khi cập nhật.',
                 life: 3000
             })
             return
@@ -49,8 +49,8 @@ const VoucherUpdateDefaultBirthday = () => {
             await voucherService.updateDefaultBirthdayVoucher(updatedVoucher)
             toast.current?.show({
                 severity: 'success',
-                summary: 'Voucher Updated',
-                detail: 'Voucher has been successfully updated.',
+                summary: 'Cập nhật thành công',
+                detail: 'Voucher đã được cập nhật thành công.',
                 life: 3000
             })
             router.push('/admin/vouchers')
@@ -58,7 +58,7 @@ const VoucherUpdateDefaultBirthday = () => {
             const errorMessage = error.message || 'Failed to update voucher. Please try again later.'
             toast.current?.show({
                 severity: 'error',
-                summary: 'Update Failed',
+                summary: 'Cập nhật không thành công',
                 detail: errorMessage,
                 life: 5000
             })
@@ -77,7 +77,7 @@ const VoucherUpdateDefaultBirthday = () => {
             setLimitationTimes(voucherData.limitationTimes ?? 1)
             setPerCustomerLimit(voucherData.discountLimitationId ?? 1)
         } catch (error) {
-            console.error('Error fetching default birthday voucher:', error)
+            console.error('Lỗi tìm kiếm phiếu mua hàng sinh nhật mặc định:', error)
         }
     }
 
@@ -85,49 +85,49 @@ const VoucherUpdateDefaultBirthday = () => {
         const newErrors: Record<string, string> = {}
 
         if (!discountName.trim()) {
-            newErrors.discountName = 'Voucher name is required.'
+            newErrors.discountName = 'Tên voucher là bắt buộc.'
         }
 
         if (limitationTimes <= 0) {
-            newErrors.limitationTimes = 'Limitation times must be greater than 0.'
+            newErrors.limitationTimes = 'Thời gian giới hạn phải lớn hơn 0.'
         }
         if (limitationTimes > 100) {
-            newErrors.limitationTimes = 'Limitation times should not exceed 100.'
+            newErrors.limitationTimes = 'Thời gian giới hạn không nên vượt quá 100.'
         }
 
         if (minOrderAmount <= 0) {
-            newErrors.minOrderAmount = 'Min order amount must be greater than 0.'
+            newErrors.minOrderAmount = 'Số tiền đặt hàng tối thiểu phải lớn hơn 0.'
         }
         if (minOrderAmount > 10000000000) {
-            newErrors.minOrderAmount = 'Min order amount should not exceed 1,000,000,000.'
+            newErrors.minOrderAmount = 'Số tiền đặt hàng tối thiểu không được vượt quá 1.000.000.000.'
         }
 
         if (usePercentage) {
             if (value <= 0 || value > 50) {
-                newErrors.value = 'Discount percentage must be between 1% and 50%.'
+                newErrors.value = 'Tỷ lệ giảm giá phải từ 1% đến 50%.'
             }
             if (maxDiscountAmount && maxDiscountAmount > 5000000) {
                 newErrors.maxDiscountAmount =
-                    'Max discount amount should not exceed 5,000,000 VNĐ for percentage discounts.'
+                    'Số tiền giảm giá tối đa không được vượt quá 5.000.000 VNĐ đối với các khuyến mãi theo tỷ lệ phần trăm.'
             }
         } else {
             if (value <= 0) {
-                newErrors.value = 'Discount amount must be greater than 0.'
+                newErrors.value = 'Số tiền giảm giá phải lớn hơn 0.'
             }
             if (value > 5000000) {
-                newErrors.value = 'Discount amount should not exceed 5,000,000 VNĐ.'
+                newErrors.value = 'Số tiền giảm giá không nên vượt quá 5.000.000 VNĐ.'
             }
             if (maxDiscountAmount && maxDiscountAmount > 5000000) {
-                newErrors.maxDiscountAmount = 'Max discount amount should not exceed 5,000,000 VNĐ.'
+                newErrors.maxDiscountAmount = 'Số tiền  giảm giá tối đa không được vượt quá 5.000.000 VNĐ.'
             }
         }
 
         if (perCustomerLimit <= 0) {
-            newErrors.perCustomerLimit = 'Per customer limit must be greater than 0.'
+            newErrors.perCustomerLimit = 'Lượt sử dụng của khách hàng phải lớn hơn 0.'
         }
 
         if (perCustomerLimit > 5) {
-            newErrors.perCustomerLimit = 'Per customer limit should not exceed 5.'
+            newErrors.perCustomerLimit = 'Lượt sử dụng của khách hàng không vượt quá 5.'
         }
 
         setErrors(newErrors)
@@ -141,11 +141,11 @@ const VoucherUpdateDefaultBirthday = () => {
     return (
         <div className='card p-5'>
             <Toast ref={toast} />
-            <h2 className='text-center mb-4'>Birthday Default</h2>
+            <h2 className='text-center mb-4'>Voucher sinh nhật mặc định</h2>
             <div className='p-fluid grid mt-4'>
                 <div className='col-12'>
                     <div className='field'>
-                        <label htmlFor='voucherName'>Voucher Name</label>
+                        <label htmlFor='voucherName'>Tên voucher</label>
                         <InputText
                             type='text'
                             disabled
@@ -153,13 +153,13 @@ const VoucherUpdateDefaultBirthday = () => {
                             value={discountName}
                             onChange={(e) => setDiscountName(e.target.value)}
                             required
-                            placeholder='Enter voucher name'
+                            placeholder='Nhập tên voucher'
                         />
                         {errors.discountName && <small className='p-error'>{errors.discountName}</small>}
                     </div>
                     <div className='field'>
                         <div className='flex align-items-center gap-3'>
-                            <span>Use Percentage</span>
+                            <span>Sử dụng tỷ lệ phần trăm</span>
                             <InputSwitch
                                 id='discountTypeSwitch'
                                 checked={usePercentage}
@@ -175,7 +175,7 @@ const VoucherUpdateDefaultBirthday = () => {
                     </div>
                     <div className='flex'>
                         <div className='field'>
-                            <label htmlFor='value'>Value</label>
+                            <label htmlFor='value'>Giá trị giảm giá</label>
                             <InputNumber
                                 inputId='value'
                                 value={value}
@@ -188,13 +188,13 @@ const VoucherUpdateDefaultBirthday = () => {
                                 min={usePercentage ? 1 : 0.1}
                                 max={usePercentage ? 50 : 100000000}
                                 required
-                                placeholder='Enter discount value'
+                                placeholder='Nhập giá trị giảm giá'
                             />
                         </div>
                         {usePercentage && (
                             <div className='field ml-5'>
                                 <label className='w-full' htmlFor='maxDiscountAmount'>
-                                    Max Discount Amount
+                                    Số tiền giảm giá tối đa
                                 </label>
                                 <InputNumber
                                     id='maxDiscountAmount'
@@ -216,7 +216,7 @@ const VoucherUpdateDefaultBirthday = () => {
                     </div>
 
                     <div className='field'>
-                        <label htmlFor='minOderAmount'>Min Order Amount</label>
+                        <label htmlFor='minOderAmount'>Số tiền đặt hàng tối thiểu</label>
                         <InputNumber
                             id='minOderAmount'
                             value={minOrderAmount}
@@ -238,13 +238,13 @@ const VoucherUpdateDefaultBirthday = () => {
                             checked={isCumulative}
                         />
                         <label htmlFor='ingredient' className='ml-2'>
-                            Cumulative with other discounts
+                            Tích lũy với các giảm giá khác
                         </label>
                     </div>
                     <div className='flex justify-between'>
                         <div className='field flex items-center gap-4 mb-0'>
                             <label className='mb-0' htmlFor='limitationTimes'>
-                                Limitation Times
+                                Thời gian giới hạn
                             </label>
                             <InputNumber
                                 style={{ width: '80px' }}
@@ -256,7 +256,7 @@ const VoucherUpdateDefaultBirthday = () => {
                         </div>
                         <div className='field flex items-center gap-4 mb-0'>
                             <label className='mb-0' htmlFor='perCustomerLimit'>
-                                Per Customer Limit
+                                Lượt sử dụng / khách hàng
                             </label>
                             <InputNumber
                                 style={{ width: '80px' }}

@@ -55,8 +55,8 @@ const LoginPage = () => {
                     <div className='w-full surface-card py-8 px-5 sm:px-8' style={{ borderRadius: '53px' }}>
                         <div className='text-center mb-5'>
                             <img src='/demo/images/login/avatar.png' alt='Image' height='50' className='mb-3' />
-                            <div className='text-900 text-3xl font-medium mb-3'>Welcome, Isabel!</div>
-                            <span className='text-600 font-medium'>Sign in to continue</span>
+                            <div className='text-900 text-3xl font-medium mb-3'>Chào mừng, Isabel!</div>
+                            <span className='text-600 font-medium'>Đăng nhập để tiếp tục</span>
                         </div>
 
                         <div>
@@ -74,7 +74,7 @@ const LoginPage = () => {
                             />
 
                             <label htmlFor='password1' className='block text-900 font-medium text-xl mb-2'>
-                                Password
+                                Mật khẩu
                             </label>
                             <Password
                                 inputId='password1'
@@ -94,17 +94,17 @@ const LoginPage = () => {
                                         onChange={(e) => setChecked(e.checked ?? false)}
                                         className='mr-2'
                                     ></Checkbox>
-                                    <label htmlFor='rememberme1'>Remember me</label>
+                                    <label htmlFor='rememberme1'>Ghi nhớ tôi trên thiết bị này</label>
                                 </div>
                                 <a
                                     className='font-medium no-underline ml-2 text-right cursor-pointer'
                                     style={{ color: 'var(--primary-color)' }}
                                 >
-                                    Forgot password?
+                                    Quên mật khẩu?
                                 </a>
                             </div>
                             <Button
-                                label='Sign In'
+                                label='Đăng nhập'
                                 className='w-full p-3 text-xl'
                                 onClick={onLogin}
                             ></Button>

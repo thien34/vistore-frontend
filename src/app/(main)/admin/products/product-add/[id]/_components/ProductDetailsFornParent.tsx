@@ -140,7 +140,7 @@ const ProductDetailsFormParent: React.FC<Props> = ({ product, id, name }) => {
         if (!isValid) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
+                summary: 'Lỗi',
                 detail: 'Vui lòng điền vào tất cả các trường bắt buộc',
                 life: 3000
             })
@@ -157,7 +157,7 @@ const ProductDetailsFormParent: React.FC<Props> = ({ product, id, name }) => {
         if (filteredAttributes.length === 0) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
+                summary: 'Lỗi',
                 detail: 'Vui lòng thêm ít nhất 1 thuộc tính',
                 life: 3000
             })
@@ -196,7 +196,7 @@ const ProductDetailsFormParent: React.FC<Props> = ({ product, id, name }) => {
         } catch (error) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
+                summary: 'Lỗi',
                 detail: error instanceof Error ? error.message : 'Đã xảy ra lỗi',
                 life: 3000
             })
@@ -233,7 +233,7 @@ const ProductDetailsFormParent: React.FC<Props> = ({ product, id, name }) => {
                     setDiscount(sortedDiscounts[0]) // Set the highest discount
                 }
             } catch (error) {
-                console.error('Error fetching discounts: ', error)
+                console.error('Lỗi khi lấy dữ liệu khuyến mãi: ', error)
             }
         }
 
@@ -289,7 +289,7 @@ const ProductDetailsFormParent: React.FC<Props> = ({ product, id, name }) => {
                     .then(() => {
                         toast.current?.show({
                             severity: 'success',
-                            summary: 'Successful',
+                            summary: 'Thành công',
                             detail: 'Thuộc tính sản phẩm đã được thêm thành công',
                             life: 3000
                         })
@@ -298,7 +298,7 @@ const ProductDetailsFormParent: React.FC<Props> = ({ product, id, name }) => {
                     .catch((error) => {
                         toast.current?.show({
                             severity: 'error',
-                            summary: 'Error',
+                            summary: 'Lỗi',
                             detail: error.message,
                             life: 3000
                         })
@@ -486,12 +486,12 @@ const ProductDetailsFormParent: React.FC<Props> = ({ product, id, name }) => {
                                 height={100}
                                 className='object-cover rounded-lg shadow-lg border border-gray-200 mb-2 image ms-20'
                                 src={imageUrl || '/demo/images/default/—Pngtree—sneakers_3989154.png'}
-                                data-pr-tooltip='Product Image'
+                                data-pr-tooltip='Hình ảnh sản phẩm'
                                 alt='Product'
                             />
 
                             <Tooltip target='.upload' />
-                            <label data-pr-tooltip='Upload Image' className='block cursor-pointer upload'>
+                            <label data-pr-tooltip='Tải lên hình ảnh' className='block cursor-pointer upload'>
                                 <input onChange={handleImageUpload} type='file' ref={fileInputRef} className='hidden' />
                                 <span
                                     className='flex items-center justify-center p-4 bg-violet-50 rounded-lg text-gray-600'
@@ -515,13 +515,13 @@ const ProductDetailsFormParent: React.FC<Props> = ({ product, id, name }) => {
                     </div>
                 </div>
                 <Accordion className='mt-5' activeIndex={0}>
-                    <AccordionTab header='Attributes'>
+                    <AccordionTab header='Thuộc tính'>
                         {attributeRows.map((row, index) => (
                             <div key={index} className='mb-4 grid grid-cols-3 items-center gap-4'>
                                 <Dropdown
                                     value={attributeRows[index].selectedAttribute}
                                     options={[
-                                        { id: 'add-new', name: '+ Thêm  thuộc tính' },
+                                        { id: 'add-new', name: '+ Thêm thuộc tính' },
                                         ...getAvailableAttributes(),
                                         ...productAttributes.filter((attr) => attr.id === row.selectedAttribute?.id)
                                     ]}
@@ -569,7 +569,7 @@ const ProductDetailsFormParent: React.FC<Props> = ({ product, id, name }) => {
                                     dropdown
                                 />
                                 <Button
-                                    tooltip='Delete'
+                                    tooltip='Xóa bỏ'
                                     onClick={() => removeAttributeRow(index)}
                                     className='pi pi-trash bg-gray-500 h-[3rem]'
                                 />

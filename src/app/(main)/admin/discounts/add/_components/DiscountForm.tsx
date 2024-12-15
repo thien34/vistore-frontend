@@ -49,7 +49,7 @@ const DiscountForm = () => {
     const filteredProducts = products.filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()))
 
     const showSuccessToast = () => {
-        toast.current?.show({ severity: 'success', summary: 'Success', detail: 'Giảm giá được tạo thành công!' })
+        toast.current?.show({ severity: 'success', summary: 'Thành công', detail: 'Giảm giá được tạo thành công!' })
     }
     useEffect(() => {
         const now = new Date()
@@ -68,7 +68,7 @@ const DiscountForm = () => {
     const showFailedToast = (errorMessage: string) => {
         toast.current?.show({
             severity: 'error',
-            summary: 'Error',
+            summary: 'Lỗi',
             detail: errorMessage || 'Giảm giá được tạo thất bại!'
         })
     }
@@ -250,9 +250,8 @@ const DiscountForm = () => {
                     </div>
 
                     <div className='field'>
-                        <label htmlFor='value'>Value</label>
-                        <InputNumber
-                            inputId='value'
+                        <label htmlFor='value'>Giá trị giảm giá</label>
+                        <InputNumber                            inputId='value'
                             value={value}
                             mode='decimal'
                             onValueChange={(e) => setValue(e.value !== undefined ? e.value : null)}
@@ -335,7 +334,7 @@ const DiscountForm = () => {
                             id='productSearch'
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            placeholder='Tìm theo tên'
+                            placeholder='Tìm theo tên sản phẩm'
                         />
                     </div>
                     <DataTable

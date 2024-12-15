@@ -88,8 +88,8 @@ export default function ProductOrderList({ id }: Props) {
                 .then(() => {
                     toast.current?.show({
                         severity: 'success',
-                        summary: 'Success',
-                        detail: 'Quantity updated successfully!',
+                        summary: 'Thành công',
+                        detail: 'Số lượng cập nhật thành công!',
                         life: 3000
                     })
                     fetchProducts()
@@ -97,13 +97,13 @@ export default function ProductOrderList({ id }: Props) {
                 .catch((error) => {
                     toast.current?.show({
                         severity: 'error',
-                        summary: 'Error',
+                        summary: 'Lỗi',
                         detail: error.message,
                         life: 3000
                     })
                 })
         } catch (error) {
-            console.error('Failed to update order item:', error)
+            console.error('Không thể cập nhật sản phẩm trong đơn hàng:', error)
         }
     }
     const formatCurrency = (value: number) => {

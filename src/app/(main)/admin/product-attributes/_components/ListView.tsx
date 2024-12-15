@@ -64,16 +64,16 @@ const ListView = ({ initialData }: ProductAttributeProps) => {
                 await productAttributeService.create(productAttribute)
                 toast.current?.show({
                     severity: 'success',
-                    summary: 'Successful',
-                    detail: 'Product Attribute Created',
+                    summary: 'Thành công',
+                    detail: 'Thuộc tính sản phẩm đã được tạo',
                     life: 3000
                 })
             } else {
                 await productAttributeService.update(productAttribute.id, productAttribute)
                 toast.current?.show({
                     severity: 'success',
-                    summary: 'Successful',
-                    detail: 'Product Attribute Updated',
+                    summary: 'Thành công',
+                    detail: 'Thuộc tính sản phẩm đã được cập nhật',
                     life: 3000
                 })
             }
@@ -97,10 +97,10 @@ const ListView = ({ initialData }: ProductAttributeProps) => {
                     mode='basic'
                     accept='image/*'
                     maxFileSize={1000000}
-                    chooseLabel='Import'
+                    chooseLabel='Nhập File'
                     className='mr-2 inline-block'
                 />
-                <Button label='Export' icon='pi pi-upload' severity='help' onClick={exportCSV} />
+                <Button label='Xuất File' icon='pi pi-upload' severity='help' onClick={exportCSV} />
             </>
         )
     }
@@ -147,8 +147,8 @@ const ListView = ({ initialData }: ProductAttributeProps) => {
 
     const productAttributeDialogFooter = (
         <>
-            <Button label='Cancel' icon='pi pi-times' outlined onClick={hideDialog} />
-            <Button label='Save' icon='pi pi-check' onClick={saveProductAttribute} />
+            <Button label='Hủy' icon='pi pi-times' outlined onClick={hideDialog} />
+            <Button label='Lưu' icon='pi pi-check' onClick={saveProductAttribute} />
         </>
     )
 
@@ -171,7 +171,7 @@ const ListView = ({ initialData }: ProductAttributeProps) => {
                     rowsPerPageOptions={[5, 10, 25]}
                     paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown'
                     globalFilter={globalFilter}
-                    emptyMessage='No product attribute found.'
+                    emptyMessage='Không tìm thấy thuộc tính sản phẩm.'
                     header={header}
                 >
                     <Column
@@ -206,7 +206,7 @@ const ListView = ({ initialData }: ProductAttributeProps) => {
             <Dialog
                 visible={productAttributeDialog}
                 breakpoints={{ '960px': '75vw', '641px': '90vw' }}
-                header='Product Attribute Details'
+                header='Chi tiết thuộc tính sản phẩm'
                 style={{ width: '30vw' }}
                 modal
                 className='p-fluid'
@@ -215,7 +215,7 @@ const ListView = ({ initialData }: ProductAttributeProps) => {
             >
                 <div className='field'>
                     <label htmlFor='name' className='font-bold'>
-                        Name <RequiredIcon />
+                        Tên thuộc tính<RequiredIcon />
                     </label>
                     <InputText
                         id='name'
@@ -225,11 +225,11 @@ const ListView = ({ initialData }: ProductAttributeProps) => {
                         autoFocus
                         className={classNames({ 'p-invalid': submitted && !productAttribute.name })}
                     />
-                    {submitted && !productAttribute.name && <small className='p-error'>Name is required.</small>}
+                    {submitted && !productAttribute.name && <small className='p-error'>Tên thuộc tính là bắt buộc.</small>}
                 </div>
                 <div className='field'>
                     <label htmlFor='description' className='font-bold'>
-                        Description
+                        Mô tả
                     </label>
                     <InputText
                         id='description'

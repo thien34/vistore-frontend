@@ -121,7 +121,7 @@ const ProductAddForm: React.FC<ProductAddFormProps> = ({ categories, manufacture
             if (errorMessage) {
                 toast.current?.show({
                     severity: 'error',
-                    summary: 'Error',
+                    summary: 'Lỗi',
                     detail: errorMessage,
                     life: 3000
                 })
@@ -275,7 +275,7 @@ const ProductAddForm: React.FC<ProductAddFormProps> = ({ categories, manufacture
                     event.preventDefault()
                     return toast.current?.show({
                         severity: 'error',
-                        summary: 'Error',
+                        summary: 'Lỗi',
                         detail: 'Số lượng không được vượt quá 1.000.000',
                         life: 3000
                     })
@@ -390,7 +390,7 @@ const ProductAddForm: React.FC<ProductAddFormProps> = ({ categories, manufacture
         if (missingAttributes.length > 0) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
+                summary: 'Lỗi',
                 detail: 'Vui lòng chọn tất cả các thuộc tính cho mỗi kết hợp',
                 life: 3000
             })
@@ -409,7 +409,7 @@ const ProductAddForm: React.FC<ProductAddFormProps> = ({ categories, manufacture
         if (combinedRows.length === 0) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
+                summary: 'Lỗi',
                 detail: 'Vui lòng thêm ít nhất một kết hợp',
                 life: 3000
             })
@@ -477,7 +477,7 @@ const ProductAddForm: React.FC<ProductAddFormProps> = ({ categories, manufacture
                 setIsLoading(false)
                 toast.current?.show({
                     severity: 'success',
-                    summary: 'Success',
+                    summary: 'Thành công',
                     detail: 'Sản phẩm đã được thêm thành công',
                     life: 3000
                 })
@@ -486,7 +486,7 @@ const ProductAddForm: React.FC<ProductAddFormProps> = ({ categories, manufacture
                 console.error('Error:', error)
                 toast.current?.show({
                     severity: 'error',
-                    summary: 'Error',
+                    summary: 'Lỗi',
                     detail: 'Thêm sản phẩm thất bại',
                     life: 3000
                 })
@@ -530,7 +530,7 @@ const ProductAddForm: React.FC<ProductAddFormProps> = ({ categories, manufacture
             if (value < 100000) {
                 toast.current?.show({
                     severity: 'error',
-                    summary: 'Error',
+                    summary: 'Lỗi',
                     detail: 'Đơn giá phải lớn hơn 100.000 VNĐ',
                     life: 3000
                 })
@@ -539,7 +539,7 @@ const ProductAddForm: React.FC<ProductAddFormProps> = ({ categories, manufacture
             if (value > 100000000) {
                 toast.current?.show({
                     severity: 'error',
-                    summary: 'Error',
+                    summary: 'Lỗi',
                     detail: 'Đơn giá không được vượt quá 100.000.000 VNĐ',
                     life: 3000
                 })
@@ -549,7 +549,7 @@ const ProductAddForm: React.FC<ProductAddFormProps> = ({ categories, manufacture
             if (value > 1000000) {
                 toast.current?.show({
                     severity: 'error',
-                    summary: 'Error',
+                    summary: 'Lỗi',
                     detail: 'Số lượng không được vượt quá 1.000.000',
                     life: 3000
                 })
@@ -586,7 +586,7 @@ const ProductAddForm: React.FC<ProductAddFormProps> = ({ categories, manufacture
                     .then(() => {
                         toast.current?.show({
                             severity: 'success',
-                            summary: 'Successful',
+                            summary: 'Thành công',
                             detail: 'Thuộc tính sản phẩm đã được thêm thành công',
                             life: 3000
                         })
@@ -595,7 +595,7 @@ const ProductAddForm: React.FC<ProductAddFormProps> = ({ categories, manufacture
                     .catch((error) => {
                         toast.current?.show({
                             severity: 'error',
-                            summary: 'Error',
+                            summary: 'Lỗi',
                             detail: error.message,
                             life: 3000
                         })
@@ -911,7 +911,7 @@ const ProductAddForm: React.FC<ProductAddFormProps> = ({ categories, manufacture
                                     )
                                 })}
                                 <Column
-                                    header='Image'
+                                    header='Hình Ảnh'
                                     body={(rowData, column) => (
                                         <div style={{ width: '100px' }}>
                                             {!uploadedImages[column.rowIndex] ||
@@ -961,7 +961,7 @@ const ProductAddForm: React.FC<ProductAddFormProps> = ({ categories, manufacture
                                 />
 
                                 <Column
-                                    header='Delete'
+                                    header='Thao Tác'
                                     body={(rowData, column) => (
                                         <Button
                                             icon='pi pi-trash'

@@ -93,7 +93,7 @@ const ListView = () => {
         const { severity, icon } = getStatus(discount.status)
         return <Tag value={discount.status} severity={severity} icon={icon} />
     }
-    const statuses: string[] = ['UPCOMING', 'ACTIVE', 'EXPIRED', 'CANCEL']
+    const statuses: string[] = ['Sắp diễn ra', 'Đang diễn ra', 'Đã hết hạn', 'Đã bị hủy']
 
     const statusFilterTemplate = (options: ColumnFilterElementTemplateOptions) => {
         return (
@@ -117,13 +117,13 @@ const ListView = () => {
 
     const getStatus = (status: string): { severity: SeverityType; icon: string | null } => {
         switch (status) {
-            case 'ACTIVE':
+            case 'Đang diễn ra':
                 return { severity: 'success', icon: 'pi pi-check' }
-            case 'UPCOMING':
+            case 'Sắp diễn ra':
                 return { severity: 'info', icon: 'pi pi-info-circle' }
-            case 'EXPIRED':
+            case 'Đã hết hạn':
                 return { severity: 'danger', icon: 'pi pi-times' }
-            case 'CANCEL':
+            case 'Đã bị hủy':
                 return { severity: 'warning', icon: 'pi pi-exclamation-triangle' }
             default:
                 return { severity: null, icon: null }
@@ -135,22 +135,22 @@ const ListView = () => {
             await discountService.cancelDiscount(promotionId)
 
             const updatedDiscounts = discounts.map((discount) =>
-                discount.id === promotionId ? { ...discount, status: 'CANCEL' } : discount
+                discount.id === promotionId ? { ...discount, status: 'Đã bị hủy' } : discount
             )
             setDiscounts(updatedDiscounts)
             setFilteredDiscounts(updatedDiscounts)
 
             toast.current?.show({
                 severity: 'success',
-                summary: 'Status Updated',
-                detail: 'Promotion marked as cancelled successfully!',
+                summary: 'Cập nhật trạng thái',
+                detail: 'Khuyến mãi được đánh dấu là bị hủy thành công!',
                 life: 3000
             })
         } catch (error) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
-                detail: 'Error cancelling promotion',
+                summary: 'Lỗi',
+                detail: 'Lỗi hủy khuyến mại',
                 life: 3000
             })
         }
@@ -159,25 +159,25 @@ const ListView = () => {
     const editAndExpiredButtonTemplate = (rowData: Promotion) => {
         return (
             <div className='flex gap-2'>
-                {rowData.status !== 'CANCEL' && (
+                {rowData.status !== 'Đã bị hủy' && (
                     <Link href={`/admin/discounts/${rowData.id}`}>
-                        <Button icon='pi pi-pencil' severity='info' aria-label='Edit' rounded />
+                        <Button icon='pi pi-pencil' severity='info' aria-label='Cập nhật' rounded />
                     </Link>
                 )}
-                {rowData.status === 'ACTIVE' && (
+                {rowData.status === 'Đang diễn ra' && (
                     <Button
                         icon='pi pi-times'
                         severity='danger'
-                        aria-label='Expire'
+                        aria-label='Hết hạn'
                         onClick={() => openConfirmDialog(rowData.id)}
                         rounded
                     />
                 )}
-                {rowData.status === 'UPCOMING' && (
+                {rowData.status === 'Sắp diễn ra' && (
                     <Button
                         icon='pi pi-trash'
                         severity='warning'
-                        aria-label='Notification'
+                        aria-label='Thông báo'
                         onClick={() => openCancelConfirmDialog(rowData.id)}
                         rounded
                     />
@@ -191,14 +191,14 @@ const ListView = () => {
             message: 'Bạn có chắc chắn muốn hủy khuyến mãi này không?',
             header: 'Xác nhận hủy',
             icon: 'pi pi-exclamation-triangle',
-            acceptLabel: 'Yes, Cancel',
-            rejectLabel: 'No, Keep',
+            acceptLabel: 'Có',
+            rejectLabel: 'Không',
             accept: () => handleCancelDiscount(promotionId),
             reject: () => {
                 toast.current?.show({
                     severity: 'info',
-                    summary: 'Cancelled',
-                    detail: 'Action cancelled.',
+                    summary: 'Hủy bỏ',
+                    detail: 'Hành động bị hủy bỏ.',
                     life: 3000
                 })
             }
@@ -211,7 +211,7 @@ const ListView = () => {
 
             const updatedDiscounts = discounts.map((discount) =>
                 discount.id === promotionId
-                    ? { ...discount, status: 'EXPIRED', endDateUtc: new Date().toISOString() }
+                    ? { ...discount, status: 'Đã hết hạn', endDateUtc: new Date().toISOString() }
                     : discount
             )
             setDiscounts(updatedDiscounts)
@@ -219,14 +219,14 @@ const ListView = () => {
 
             toast.current?.show({
                 severity: 'success',
-                summary: 'Status Updated',
+                summary: 'Cập nhật trạng thái',
                 detail: 'Khuyến mại được đánh dấu là đã hết hạn và ngày kết thúc được đặt thành bây giờ!',
                 life: 3000
             })
         } catch (error) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
+                summary: 'Lỗi',
                 detail: 'Lỗi đánh dấu khuyến mại là đã hết hạn',
                 life: 3000
             })
@@ -238,14 +238,14 @@ const ListView = () => {
             message: 'Bạn có chắc chắn muốn đánh dấu khuyến mãi này là đã hết hạn không?',
             header: 'Xác Nhận',
             icon: 'pi pi-exclamation-triangle',
-            acceptLabel: 'Yes',
-            rejectLabel: 'No',
+            acceptLabel: 'Có',
+            rejectLabel: 'Không',
             accept: () => handleConfirmExpired(promotionId),
             reject: () => {
                 toast.current?.show({
                     severity: 'info',
-                    summary: 'Cancelled',
-                    detail: 'Action cancelled.',
+                    summary: 'Hủy bỏ',
+                    detail: 'Hành động bị hủy bỏ.',
                     life: 3000
                 })
             }
@@ -295,7 +295,7 @@ const ListView = () => {
                         </div>
                         <div className='field col-12'>
                             <label htmlFor='discountPercentage'>
-                                Discount Percentage ({searchParams.discountPercentage[0]}% -{' '}
+                                Phần trăm giảm giá ({searchParams.discountPercentage[0]}% -{' '}
                                 {searchParams.discountPercentage[1]}%)
                             </label>
                             <Slider
@@ -325,7 +325,7 @@ const ListView = () => {
                     paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown'
                     dataKey='id'
                     currentPageReportTemplate='Hiển thị từ {first} đến {last} trong tổng số {totalRecords} giảm giá'
-                    emptyMessage='Không tim thấy giảm giá nào'
+                    emptyMessage='Không tìm thấy đợt giảm giá nào'
                 >
                     <Column header='#' body={indexBodyTemplate} />
                     <Column field='name' header='Tên Giảm Giá' sortable />

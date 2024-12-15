@@ -48,23 +48,23 @@ export default function CheckoutPage() {
     function handleCartItemDelete(cart: CartResponse, event: React.MouseEvent<HTMLElement>): void {
         confirmPopup({
             target: event.currentTarget,
-            message: 'Are you sure you want to delete this item from the cart?',
+            message: 'Bạn có chắc là bạn muốn xóa sản phẩm này khỏi giỏ hàng?',
             icon: 'pi pi-info-circle',
-            acceptLabel: 'Yes',
-            rejectLabel: 'No',
+            acceptLabel: 'Có',
+            rejectLabel: 'Không',
             accept: () => {
                 CartService.deleteBill(cart.cartUUID)
                     .then(() => {
                         toast.current?.show({
                             severity: 'success',
-                            summary: 'Success',
-                            detail: 'Delete cart item successfully',
+                            summary: 'Thành công',
+                            detail: 'Xóa sản phẩm khỏi giỏ hàng thành công',
                             life: 1000
                         })
                         fetchCart()
                     })
                     .catch((error) => {
-                        console.error('Error deleting cart item:', error)
+                        console.error('Lỗi khi xóa sản phẩm khỏi giỏ hàng:', error)
                     })
             }
         })
@@ -74,10 +74,10 @@ export default function CheckoutPage() {
         <main className='card  '>
             <div className=''>
                 <h5>
-                    Total Amount: <span className='font-bold text-primary-700'>${amountPaidLocal}</span>
+                    Tổng số tiền: <span className='font-bold text-primary-700'>${amountPaidLocal}</span>
                 </h5>
                 <h5>
-                    Order Code: <span className='font-bold text-primary-700'>{billId}</span>
+                    Mã đặt hàng: <span className='font-bold text-primary-700'>{billId}</span>
                 </h5>
             </div>
             <ConfirmPopup />

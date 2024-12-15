@@ -48,7 +48,7 @@ const CartItem = ({ cart, onDelete, onQuantityChange }: CartItemProps) => {
             await CartService.updateCartQuantity(cart.id, newQuantity)
             toast.current?.show({
                 severity: 'success',
-                summary: 'Success',
+                summary: 'Thành công',
                 detail: 'Số lượng được cập nhật thành công',
                 life: 3000
             })
@@ -57,7 +57,7 @@ const CartItem = ({ cart, onDelete, onQuantityChange }: CartItemProps) => {
         } catch (error) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
+                summary: 'Lỗi',
                 detail: error instanceof Error ? error.message : 'Đã xảy ra lỗi',
                 life: 3000
             })

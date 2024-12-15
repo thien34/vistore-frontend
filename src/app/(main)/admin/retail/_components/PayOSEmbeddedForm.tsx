@@ -50,7 +50,7 @@ const PayOSForm = ({ paymentOSRequest, setVisible, setAmountPaid }: PayOSFormPro
             setIsOpen(true)
             setShowContainer(true)
         } catch (error) {
-            console.error('Error:', error)
+            console.error('Lỗi:', error)
             setMessage('Không thể tạo link thanh toán.')
         } finally {
             setIsLoading(false)

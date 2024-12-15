@@ -27,8 +27,8 @@ export default function AtbDialog({
 }: Props) {
     const productAttributeDialogFooter = (
         <>
-            <Button label='Cancel' icon='pi pi-times' outlined onClick={hideDialog} />
-            <Button label='Save' icon='pi pi-check' onClick={saveProductAttribute} />
+            <Button label='Hủy' icon='pi pi-times' outlined onClick={hideDialog} />
+            <Button label='Lưu' icon='pi pi-check' onClick={saveProductAttribute} />
         </>
     )
 

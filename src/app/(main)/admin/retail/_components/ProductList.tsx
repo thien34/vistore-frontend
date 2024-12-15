@@ -161,7 +161,7 @@ export default function ProductListComponent({
                 setVisibleQuantity(false)
                 toast.current?.show({
                     severity: 'success',
-                    summary: 'Success',
+                    summary: 'Thành công',
                     detail: 'Sản phẩm được thêm vào giỏ hàng thành công',
                     life: 1000
                 })
@@ -172,8 +172,8 @@ export default function ProductListComponent({
                 console.error('Lỗi thêm sản phẩm vào giỏ hàng:', error)
                 toast.current?.show({
                     severity: 'error',
-                    summary: 'Error',
-                    detail: error instanceof Error ? error.message : 'An error occurred',
+                    summary: 'Lỗi',
+                    detail: error instanceof Error ? error.message : 'Một lỗi đã xảy ra',
                     life: 3000
                 })
             })
@@ -185,21 +185,21 @@ export default function ProductListComponent({
             target: event.currentTarget,
             message: 'Bạn có chắc chắn muốn xóa mặt hàng này khỏi giỏ hàng không?',
             icon: 'pi pi-info-circle',
-            acceptLabel: 'Yes',
-            rejectLabel: 'No',
+            acceptLabel: 'Có',
+            rejectLabel: 'Không',
             accept: () => {
                 CartService.deleteItemInBill(cart.cartUUID)
                     .then(() => {
                         toast.current?.show({
                             severity: 'success',
-                            summary: 'Success',
+                            summary: 'Thành công',
                             detail: 'Xóa giỏ hàng thành công',
                             life: 1000
                         })
                         fetchCart()
                     })
                     .catch((error) => {
-                        console.error('Lỗi xóa mục giỏ hàng:', error)
+                        console.error('Lỗi xóa giỏ hàng:', error)
                     })
             }
         })
@@ -213,7 +213,7 @@ export default function ProductListComponent({
         } else {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
+                summary: 'Lỗi',
                 detail: 'Không tìm thấy mã QR',
                 life: 1000
             })

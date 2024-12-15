@@ -28,7 +28,7 @@ export default function PaymentDialog({ visible, setVisible, totalAmount, setAmo
         if (amountPaidState < totalAmount) {
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
+                summary: 'Lỗi',
                 detail: 'Số tiền thanh toán không được nhỏ hơn tổng số tiền',
                 life: 3000
             })

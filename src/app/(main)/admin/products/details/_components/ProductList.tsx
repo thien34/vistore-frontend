@@ -47,7 +47,7 @@ function ProductList({ products }: Props) {
                 <InputText
                     value={globalFilterValue}
                     onChange={onGlobalFilterChange}
-                    placeholder='Tìm kiếm toàn bộ'
+                    placeholder='Tìm kiếm...'
                     className='w-full'
                 />
             </span>
@@ -86,7 +86,7 @@ function ProductList({ products }: Props) {
                     }}
                 />
                 <Column
-                    header='Ảnh'
+                    header='Hình Ảnh'
                     body={(rowData) => (
                         <Image
                             src={rowData.imageUrl || '/demo/images/default/—Pngtree—sneakers_3989154.png'}

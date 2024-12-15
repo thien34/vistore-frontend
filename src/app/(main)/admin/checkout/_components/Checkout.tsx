@@ -78,7 +78,7 @@ const CheckoutPage = ({ totalAmount }: Props) => {
             {errorMessage && <div>{errorMessage}</div>}
 
             <Button className='w-full mt-4 text-center font-bold flex justify-center' disabled={!stripe || loading}>
-                {!loading ? `Checkout` : 'Processing...'}
+                {!loading ? `Thanh toán` : 'Đang xử lý...'}
             </Button>
         </form>
     )

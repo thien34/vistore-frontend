@@ -37,7 +37,7 @@ const ListView = () => {
                 setDiscounts(response)
                 setFilteredDiscounts(response)
             } catch (error) {
-                console.error('Error fetching discounts:', error)
+                console.error('Lỗi khi lấy thông tin giảm giá:', error)
             } finally {
                 setLoading(false)
             }
@@ -48,10 +48,10 @@ const ListView = () => {
     const leftToolbarTemplate = () => (
         <div className='flex flex-wrap gap-2 my-5'>
             <Link href='/admin/vouchers/add'>
-                <Button label='Add new discount' icon='pi pi-plus' severity='success' />
+                <Button label='Thêm voucher mới' icon='pi pi-plus' severity='success' />
             </Link>
             <Link href='/admin/vouchers/default-birthday-voucher'>
-                <Button label='Update default birthday voucher' icon='pi pi-plus' severity='info' />
+                <Button label='Cập nhật voucher sinh nhật mặc định' icon='pi pi-plus' severity='info' />
             </Link>
         </div>
     )
@@ -107,9 +107,9 @@ const ListView = () => {
     }
     const typeBodyTemplate = (rowData: Voucher) => {
         if (rowData.isPublished) {
-            return <Tag value='Public' icon='pi pi-unlock' severity='info' />
+            return <Tag value='Công khai' icon='pi pi-unlock' severity='info' />
         } else {
-            return <Tag value='Private' icon='pi pi-lock' severity='warning' />
+            return <Tag value='Riêng tư' icon='pi pi-lock' severity='warning' />
         }
     }
 
@@ -120,11 +120,11 @@ const ListView = () => {
 
         return (
             <div className='flex items-center gap-2'>
-                <Image src={imageUrl} alt='Discount Type' className='w-4rem h-4rem' style={{ borderRadius: '50%' }} />
+                <Image src={imageUrl} alt='Loại giảm giá' className='w-4rem h-4rem' style={{ borderRadius: '50%' }} />
                 <div>
                     <div>{rowData.name}</div>
                     <div style={{ fontSize: '0.85em', color: '#888' }}>
-                        {rowData.couponCode ? `Voucher code: ${rowData.couponCode}` : 'Applicable'}
+                        {rowData.couponCode ? `Mã giảm giá: ${rowData.couponCode}` : 'Áp dụng'}
                     </div>
                 </div>
             </div>
@@ -136,14 +136,14 @@ const ListView = () => {
             <div className='flex gap-2'>
                 {rowData.status !== 'CANCEL' && (
                     <Link href={`/admin/vouchers/${rowData.id}`}>
-                        <Button icon='pi pi-pencil' severity='info' aria-label='Edit' rounded />
+                        <Button icon='pi pi-pencil' severity='info' aria-label='Cập nhật' rounded />
                     </Link>
                 )}
                 {rowData.status === 'ACTIVE' && (
                     <Button
                         icon='pi pi-times'
                         severity='danger'
-                        aria-label='Expire'
+                        aria-label='Hết hạn'
                         onClick={() => openConfirmDialog(rowData.id)}
                         rounded
                     />
@@ -152,7 +152,7 @@ const ListView = () => {
                     <Button
                         icon='pi pi-trash'
                         severity='warning'
-                        aria-label='Notification'
+                        aria-label='Thông báo'
                         onClick={() => openCancelConfirmDialog(rowData.id)}
                         rounded
                     />
@@ -173,16 +173,16 @@ const ListView = () => {
 
             toast.current?.show({
                 severity: 'success',
-                summary: 'Status Updated',
-                detail: 'Promotion marked as cancelled successfully!',
+                summary: 'Cập nhật trạng thái',
+                detail: 'Khuyến mãi được đánh dấu là bị hủy thành công!',
                 life: 3000
             })
         } catch (error: unknown) {
-            console.error('Error cancelling promotion:', error)
+            console.error('Lỗi hủy khuyến mãi: ', error)
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
-                detail: 'Error cancelling promotion',
+                summary: 'Lỗi',
+                detail: 'Lỗi hủy khuyến mại',
                 life: 3000
             })
         }
@@ -190,17 +190,17 @@ const ListView = () => {
 
     const openCancelConfirmDialog = (promotionId: number | undefined) => {
         confirmDialog({
-            message: 'Are you sure you want to cancel this promotion?',
-            header: 'Confirm Cancel',
+            message: 'Bạn có chắc là bạn muốn hủy chương trình khuyến mãi này không?',
+            header: 'Xác nhận hủy',
             icon: 'pi pi-exclamation-triangle',
-            acceptLabel: 'Yes, Cancel',
-            rejectLabel: 'No, Keep',
+            acceptLabel: 'Có',
+            rejectLabel: 'Không',
             accept: () => handleCancelDiscount(promotionId),
             reject: () => {
                 toast.current?.show({
                     severity: 'info',
-                    summary: 'Cancelled',
-                    detail: 'Action cancelled.',
+                    summary: 'Hủy bỏ',
+                    detail: 'Hành động bị hủy bỏ.',
                     life: 3000
                 })
             }
@@ -221,16 +221,16 @@ const ListView = () => {
 
             toast.current?.show({
                 severity: 'success',
-                summary: 'Status Updated',
-                detail: 'Promotion marked as expired and end date set to now!',
+                summary: 'Cập nhật trạng thái',
+                detail: 'Khuyến mãi đã được đánh dấu là hết hạn và ngày kết thúc được đặt là thời điểm hiện tại.!',
                 life: 3000
             })
         } catch (error: unknown) {
             console.error('Error marking promotion as expired:', error)
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
-                detail: 'Error marking promotion as expired',
+                summary: 'Lỗi',
+                detail: 'Không thể cập nhật trạng thái hết hạn của khuyến mãi.',
                 life: 3000
             })
         }
@@ -238,17 +238,17 @@ const ListView = () => {
 
     const openConfirmDialog = (promotionId: number | undefined) => {
         confirmDialog({
-            message: 'Are you sure you want to mark this promotion as expired?',
-            header: 'Confirm',
+            message: 'Bạn có chắc là bạn muốn đánh dấu chương trình khuyến mãi này là đã hết hạn?',
+            header: 'Xác nhận',
             icon: 'pi pi-exclamation-triangle',
-            acceptLabel: 'Yes',
-            rejectLabel: 'No',
+            acceptLabel: 'Có',
+            rejectLabel: 'Không',
             accept: () => handleConfirmExpired(promotionId),
             reject: () => {
                 toast.current?.show({
                     severity: 'info',
-                    summary: 'Cancelled',
-                    detail: 'Action cancelled.',
+                    summary: 'Hủy bỏ',
+                    detail: 'Hành động bị hủy bỏ.',
                     life: 3000
                 })
             }
@@ -263,16 +263,16 @@ const ListView = () => {
             await axios.post('http://localhost:8080/api/admin/vouchers/generate-birthday-vouchers')
             toast.current?.show({
                 severity: 'success',
-                summary: 'Success',
-                detail: 'Birthday Vouchers generated successfully',
+                summary: 'Thành công',
+                detail: 'Voucher sinh nhật được tạo thành công',
                 life: 3000
             })
         } catch (error) {
-            console.error('Error generating birthday vouchers:', error)
+            console.error('Không thể tạo voucher sinh nhật:', error)
             toast.current?.show({
                 severity: 'error',
-                summary: 'Error',
-                detail: 'Failed to generate birthday vouchers',
+                summary: 'Lỗi',
+                detail: 'Không thể tạo voucher sinh nhật',
                 life: 3000
             })
         }
@@ -287,9 +287,7 @@ const ListView = () => {
             <Spinner isLoading={loading} />
             <div className='card'>
                 {leftToolbarTemplate()}
-                <Button className='my-4' onClick={handleGenerateBirthdayVouchers}>
-                    Generate Birthday Vouchers
-                </Button>
+                <Button className='my-4' icon='pi pi-plus' label='Tạo voucher sinh nhật' onClick={handleGenerateBirthdayVouchers}></Button>
                 <DataTable
                     scrollable
                     value={filteredDiscounts}
@@ -298,16 +296,16 @@ const ListView = () => {
                     rowsPerPageOptions={[10, 25, 50]}
                     paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown'
                     dataKey='id'
-                    currentPageReportTemplate='Showing {first} to {last} of {totalRecords} entries'
-                    emptyMessage='No discounts found.'
+                    currentPageReportTemplate='Hiển thị từ {first} đến {last} trong tổng số {totalRecords} voucher'
+                    emptyMessage='Không tìm thấy giảm giá.'
                 >
                     <Column header='#' body={indexBodyTemplate} />
-                    <Column header='Voucher Name | Voucher Code' frozen body={voucherInfoTemplate} />
-                    <Column header='Status' body={statusBodyTemplate} />
-                    <Column header='Discount Value' body={formatDiscountAndStock} />
-                    <Column header='Type' body={typeBodyTemplate} />
+                    <Column header='Tên phiếu giảm giá' frozen body={voucherInfoTemplate} />
+                    <Column header='Trạng thái' body={statusBodyTemplate} />
+                    <Column header='Giá trị giảm' body={formatDiscountAndStock} />
+                    <Column header='Loại voucher' body={typeBodyTemplate} />
                     <Column
-                        header='Usage'
+                        header='Khả dụng'
                         body={(rowData) => {
                             const total = rowData.limitationTimes || '∞'
                             const used = rowData.usageCount || 0
@@ -315,14 +313,14 @@ const ListView = () => {
                         }}
                     />
                     <Column
-                        header='Time of Discount Code'
+                        header='Thời gian áp dụng'
                         body={(rowData) => {
                             const startTime = vietnamTime(rowData.startDateUtc)
                             const endTime = vietnamTime(rowData.endDateUtc)
                             return `${startTime} - ${endTime}`
                         }}
                     />
-                    <Column header='Actions' body={editAndExpiredButtonTemplate} />
+                    <Column header='Thao Tác' body={editAndExpiredButtonTemplate} />
                 </DataTable>
             </div>
         </>
