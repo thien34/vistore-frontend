@@ -56,7 +56,7 @@ const VoucherUpdate = () => {
             newErrors.discountName = 'Tên voucher là bắt buộc.'
         }
         if (limitationTimes <= 0) {
-            newErrors.limitationTimes = 'Thời gian giới hạn phải lớn hơn 0.'
+            newErrors.limitationTimes = 'Lượt khả dụng phải lớn hơn 0.'
         }
         if (!toDate) {
             newErrors.toDate = 'Ngày kết thúc là bắt buộc.'

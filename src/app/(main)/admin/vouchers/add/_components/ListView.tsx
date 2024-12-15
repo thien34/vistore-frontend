@@ -242,7 +242,7 @@ const DiscountForm = ({ initialCustomers }: DiscounProps) => {
         }
         const limitationTimeValid = limitationTimes != null ? limitationTimes : 0
         if (limitationTimeValid <= 0 || limitationTimeValid > 100000000) {
-            newErrors.limitationTimes = 'Thời gian giới hạn phải nằm trong khoảng từ 1 đến 100.000.000.'
+            newErrors.limitationTimes = 'Lượt khả dụng phải nằm trong khoảng từ 1 đến 100.000.000.'
             isValid = false
         }
         const perCustomerLimitValid = perCustomerLimit !== null ? perCustomerLimit : 0

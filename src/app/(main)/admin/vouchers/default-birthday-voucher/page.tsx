@@ -89,10 +89,10 @@ const VoucherUpdateDefaultBirthday = () => {
         }
 
         if (limitationTimes <= 0) {
-            newErrors.limitationTimes = 'Thời gian giới hạn phải lớn hơn 0.'
+            newErrors.limitationTimes = 'Lượt khả dụng phải lớn hơn 0.'
         }
         if (limitationTimes > 100) {
-            newErrors.limitationTimes = 'Thời gian giới hạn không nên vượt quá 100.'
+            newErrors.limitationTimes = 'Lượt khả dụng không nên vượt quá 100.'
         }
 
         if (minOrderAmount <= 0) {
@@ -244,7 +244,7 @@ const VoucherUpdateDefaultBirthday = () => {
                     <div className='flex justify-between'>
                         <div className='field flex items-center gap-4 mb-0'>
                             <label className='mb-0' htmlFor='limitationTimes'>
-                                Thời gian giới hạn
+                                Lượt khả dụng
                             </label>
                             <InputNumber
                                 style={{ width: '80px' }}
