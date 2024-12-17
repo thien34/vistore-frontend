@@ -2,7 +2,7 @@
 import CartService from '@/service/cart.service'
 import { Button } from 'primereact/button'
 import { ConfirmPopup, confirmPopup } from 'primereact/confirmpopup'
-import { useLocalStorage, useMountEffect, useUpdateEffect } from 'primereact/hooks'
+import { useMountEffect } from 'primereact/hooks'
 import { TabPanel, TabPanelHeaderTemplateOptions, TabView } from 'primereact/tabview'
 import { Toast } from 'primereact/toast'
 import { useRef, useState } from 'react'
@@ -22,7 +22,6 @@ type Tab = {
 export default function Retail() {
     const [tabs, setTabs] = useState<Tab[]>([])
     const [activeIndex, setActiveIndex] = useState(0)
-    const [billId, setBillId] = useLocalStorage<string>('billId', '')
     const toast = useRef<Toast>(null)
 
     useMountEffect(() => {
@@ -44,6 +43,7 @@ export default function Retail() {
                                     updateTabTotalItems={updateTabTotalItems}
                                     fetchBill={fetchBill}
                                     numberBill={numberBill}
+                                    billId={billId}
                                 />
                             ),
                             billId: billId,
@@ -51,21 +51,16 @@ export default function Retail() {
                         }))
 
                     setTabs(newTabs)
-                    // setBillId(newTabs[0]?.id || '')
                     if (newTabs.length > 0) {
                         if (activeIndex === newTabs.length) {
                             const newActiveIndex = activeIndex === newTabs.length ? activeIndex - 1 : activeIndex
                             setActiveIndex(newActiveIndex)
-                            setBillId(newTabs[newActiveIndex].billId)
                         } else {
                             setActiveIndex(activeIndex > newTabs.length ? activeIndex - 1 : activeIndex)
-                            setBillId(newTabs[activeIndex > newTabs.length ? activeIndex - 1 : activeIndex].billId)
                         }
                     } else {
                         setActiveIndex(0)
-                        setBillId('')
                     }
-                    localStorage.setItem('billIdCurrent', newTabs[activeIndex].billId)
                 }
             })
             .catch((error) => {
@@ -108,10 +103,8 @@ export default function Retail() {
             return
         }
         await CartService.addBill(newId)
-        setBillId(newId)
         fetchBill()
 
-        localStorage.setItem('billIdCurrent', newId)
         setTabs([
             ...tabs,
             {
@@ -122,6 +115,7 @@ export default function Retail() {
                         updateTabTotalItems={updateTabTotalItems}
                         fetchBill={fetchBill}
                         numberBill={tabs.length + 1}
+                        billId={newId}
                     />
                 ),
                 billId: newId,
@@ -137,30 +131,24 @@ export default function Retail() {
             .then(() => {
                 setTabs(newTabs)
             })
-            .catch((error) => {
-                console.log(error)
+            .catch(() => {
+                window.location.reload()
             })
 
         if (newTabs.length > 0) {
             if (tabIndex === activeIndex) {
                 const newActiveIndex = tabIndex === newTabs.length ? activeIndex - 1 : activeIndex
                 setActiveIndex(newActiveIndex)
-                setBillId(newTabs[newActiveIndex].billId)
             } else {
                 setActiveIndex(activeIndex > tabIndex ? activeIndex - 1 : activeIndex)
-                setBillId(newTabs[activeIndex > tabIndex ? activeIndex - 1 : activeIndex].billId)
             }
         } else {
             setActiveIndex(0)
-            setBillId('')
         }
     }
 
     const handleTabChange = (e: { index: number }) => {
-        const currentTabId = tabs[e.index].id
         setActiveIndex(e.index)
-        setBillId(currentTabId)
-        localStorage.setItem('billIdCurrent', currentTabId)
     }
 
     const showError = () => {

@@ -39,6 +39,7 @@ interface CustommerOrderProps {
     totalWeight: number
     fetchBill: () => void
     numberBill: number
+    billId: string
 }
 interface CustomIsApplicable {
     isApplicable: boolean
@@ -50,7 +51,7 @@ interface VoucherErrorResponse {
     couponCode: string
 }
 
-export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: CustommerOrderProps) {
+export default function CustommerOrder({ orderTotals, fetchBill, numberBill, billId }: CustommerOrderProps) {
     const [checked, setChecked] = useState<boolean>(false)
     const [provinces, setProvinces] = useState<Province[]>([])
     const [visible, setVisible] = useState<boolean>(false)
@@ -364,8 +365,6 @@ export default function CustommerOrder({ orderTotals, fetchBill, numberBill }: C
     }
 
     const handleOrder = async () => {
-        const billId = localStorage.getItem('billIdCurrent')
-        if (!billId) return
         if (validVouchers.length > 0) validateCouponCode(couponCodes)
         if (!validateAddress()) return
         if (!validateDiscount()) return

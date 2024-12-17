@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { FilterMatchMode, FilterOperator } from 'primereact/api'
 import { DataTableFilterMeta } from 'primereact/datatable'
 import { Button } from 'primereact/button'
@@ -48,17 +48,18 @@ interface ProductListComponentProps {
     updateTabTotalItems: (billId: string, newTotalItems: number) => void
     fetchBill: () => void
     numberBill: number
+    billId: string
 }
 
 export default function ProductListComponent({
     updateTabTotalItems,
     fetchBill,
-    numberBill
+    numberBill,
+    billId
 }: ProductListComponentProps) {
     const [filters, setFilters] = useState<DataTableFilterMeta>(defaultFilters)
     const [globalFilterValue, setGlobalFilterValue] = useState<string>('')
     const [product, setProduct] = useState<ProductResponseDetails>()
-    const [billId] = useLocalStorage<string>('billId', '')
     const [quantity, setQuantity] = useState<number>(1)
     const [carts, setCarts] = useState<CartResponse[]>([])
     const [products, setProducts] = useState<ProductResponse[]>([])
@@ -300,6 +301,7 @@ export default function ProductListComponent({
                         totalWeight={totalWeight}
                         fetchBill={fetchBill}
                         numberBill={numberBill}
+                        billId={billId}
                     />
                 </>
             )}
